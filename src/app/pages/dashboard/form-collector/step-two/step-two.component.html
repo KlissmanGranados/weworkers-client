@@ -1,0 +1,30 @@
+<div class="stepsdemo-content container">
+  <p-card class="card-form">
+      <ng-template pTemplate="title">
+          Personal Information
+      </ng-template>
+      <ng-template pTemplate="subtitle">
+          Enter your personal information
+      </ng-template>
+      <ng-template pTemplate="content">
+          <div class="p-fluid">
+              <div class="p-field">
+                  <label for="fecha">Fecha de inicio</label>
+                  <input id="enddate" class="form-control" type="date"/>
+                  <!-- <small *ngIf="(firstname.invalid && submitted) || (firstname.dirty && firstname.invalid)" class="p-error">Firstname is required.</small> -->
+              </div>
+              <div class="p-field mt-4">
+                  <label for="fecha">Fecha de finalización</label>
+                  <input id="enddate" class="form-control" type="date" />
+                  <!-- <small class="p-error" *ngIf="(lastname.invalid && submitted )|| (lastname.dirty && lastname.invalid)">Lastname is required.</small> -->
+              </div>
+          </div>
+      </ng-template>
+      <ng-template pTemplate="footer">
+          <div class="p-nogutter p-justify-end text-right d-flex" style=" justify-content: space-between;">
+            <p-button label="Previous" class="p-button-start" (click)="navigateToPrevItem()" icon="pi pi-angle-left" iconPos="left" [style]="{'backgroundColor': 'var(--indigo-500)'}"></p-button>
+              <p-button label="Next" class="p-button-end aling-style" (click)="navigateToPrev()" icon="pi pi-angle-right" iconPos="right" [style]="{'backgroundColor': 'var(--indigo-500)'}"></p-button>
+          </div>
+      </ng-template>
+  </p-card>
+</div>

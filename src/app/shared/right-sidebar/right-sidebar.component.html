@@ -1,0 +1,11 @@
+
+<div class="d-flex flex-column ms-auto flex-shrink-0 bg-light vh-90 right-sidebar" style="width: 100px;">
+    <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
+        <li class="nav-item"> <a class="nav-link active py-3 border-bottom" (click)="redirect()"><i class="pi pi-home"></i> <small>Inicio</small> </a> </li>
+        <li> <a class="nav-link py-3 border-bottom" routerLink="/dashboard/politicas"><i class="pi pi-flag"></i> <small>Politicas</small> </a> </li>
+        <li> <a class="nav-link py-3 border-bottom" routerLink="/dashboard/proyects"><i class="pi pi-desktop"></i> <small>Mis proyectos</small> </a> </li>
+        <li> <a class="nav-link py-3 border-bottom" routerLink="/dashboard/chat"><i class="pi pi-send"></i> <small>Mensajeria</small> </a> </li>
+        <li> <a class="nav-link py-3 border-top" (click)="singOut()" style="margin-top: 13rem;"><i class="pi pi-power-off"></i><small>Cerrar Sesión</small> </a> </li>
+    </ul>
+</div>
+

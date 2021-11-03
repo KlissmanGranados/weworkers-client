@@ -1,0 +1,115 @@
+<!-- Toolbar -->
+<!-- <div class="content" role="main">
+  <div class="login">
+    <h2 class="title">Login to Chat</h2>
+    <form id="login-form">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input
+          type="text"
+          class="form-control"
+          id="text"
+          name="username"
+          placeholder="Username"/>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div> -->
+
+<div>
+  <!-- <h3 class="text-center">Mensajes</h3> -->
+  <div class="messaging">
+    <div class="inbox_msg">
+      <div class="inbox_people">
+        <div class="headind_srch">
+          <div class="channel_heading">
+            <h4>Canales</h4>
+          </div>
+        </div>
+        <div class="inbox_chat">
+          <div class="channels">
+            <div class="chat_list">
+              <div class="chat_people">
+                <div class="chat_ib">
+                  <h5>
+                    Nombre del canal
+                  </h5>
+                  <p>
+                    Pendiente 
+                    <!-- state -->
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mesgs">
+        <div class="msg_history">
+          <li class="message">
+            <div>
+              <ul class="m-b-0">
+                <li class="clearfix" style="list-style: none;">
+                    <div class="message-data text-end">
+                        <span class="message-data-time">10:10 AM, Today</span>
+                    </div>
+                    <div class="message other-message float-end"> Hi Aiden, how are you? How is the project coming along? </div>
+                </li>
+                <li class="clearfix" style="list-style: none;">
+                    <div class="message-data">
+                        <span class="message-data-time">10:12 AM, Today</span>
+                    </div>
+                    <div class="message my-message">Are we meeting today?</div>
+                </li>
+                <li class="clearfix" style="list-style: none;">
+                    <div class="message-data">
+                        <span class="message-data-time">10:15 AM, Today</span>
+                    </div>
+                    <div class="message my-message">Project has been already finished and I have results to show you.</div>
+                </li>
+            </ul>
+            </div>
+            <ng-template #incoming_msg>
+              <div class="incoming_msg">
+                <div class="incoming_msg_img">
+                  <img
+                    src="https://i.imgur.com/k2PZLZa.png"
+                    alt="User avatar"
+                  />
+                </div>
+                <div class="received_msg">
+                  <div class="received_withd_msg">
+                    <p>mensaje</p>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+            <ng-template #outgoing_msg>
+              <div class="outgoing_msg">
+                <div class="sent_msg">
+                  <p>mensaje</p>
+                </div>
+              </div>
+            </ng-template>
+          </li>
+        </div>
+        <div class="type_msg">
+          <form class="input_msg_write">
+            <input
+              type="text"
+              class="write_msg"
+              placeholder="Type a message"
+              name="newMessage"
+            />
+            <button class="msg_send_btn" type="button">
+              <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

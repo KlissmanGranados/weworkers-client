@@ -1,0 +1,60 @@
+
+<app-sidebar></app-sidebar>
+<div class="page-wrapper">
+  <div  class="welcome-card" *ngIf="welcome">
+    <p-card header="¡Hola, Bienvenido a We Workers!" [style]="{'width': 'auto', 'margin': '2em 3rem', 'display': 'flex'}">
+      <ng-template pTemplate="header">
+          <img alt="Card" src="../../../../assets/landing/cards/card-3.gif">
+      </ng-template>
+    <i class="pi pi-times icon" (click)="welcome = !welcome" style="cursor: pointer;"></i>
+      <p>¿Listo para Trabajar?, Completa tu perfil presionando el icono que está en la barra de navegación para poder aplicar a un proyecto, recuerda leer nuestras políticas y términos de condición para cerciorarte de tener una buena experiencia utilizando We Workers ¡Mucho exitó compañero!</p>
+    </p-card>
+  </div>
+  <div class="card">
+      <div class="p-col p-d-flex p-ai-center p-jc-center" *ngFor="let proyecto of listadoProyecto">
+        <p-card [header]="proyecto.nombre" [style]="{'width': 'auto', 'margin': '2em 3rem', 'backgroundColor':'var(--bluegray-50)'}">
+          <div class="row">
+            <div class="col-md-6">
+              <p>{{proyecto.descripcion}}</p>
+              <br>
+              <ul style="list-style: none; padding-left: 0;">
+                <h5>Detalles</h5>
+                <li>Modalidad: {{proyecto.modalidadNombre}}</li>
+                <li>Fecha de Publicación: {{proyecto.fechaCrea.etiqueta}}</li>
+                <li>Fecha de Finalización: {{proyecto.fechaTermina.etiqueta}}</li>
+              </ul>
+              <div class="d-flex">
+                <div *ngFor="let tag of proyecto.tags">
+                  <p-tag styleClass="p-mr-2" [value]="tag.nombre" icon="pi pi-star-o" [style]="{'backgroundColor': 'var(--indigo-300)', 'font-size': '0.95rem', 'margin-right': '0.7rem','border-radius':'1rem'}"></p-tag>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 button-aling">
+              <button pButton pRipple type="button" label="Aplicar al proyeto" class="p-button-rounded" [style]="{'backgroundColor':'var(--indigo-600)','margin-bottom':'0.5rem','margin-right': '1em'}"></button>
+              <ul class="payment-aling">
+                <li style="padding-right: 0.2rem; text-transform: capitalize;">{{proyecto.tiposPagoNombre}}</li>
+                <li>{{proyecto.presupuesto}} {{proyecto.monedaNombreCorto}}</li>
+              </ul>
+            </div>
+          </div>
+      </p-card>
+      <!-- <p-divider></p-divider> -->
+      </div>
+  </div>
+  <div *ngIf="message !== '' && listadoProyecto.length === 0">
+    <img class="text-center" src="../../../../assets/images/Dashboard/message.gif" height="200px" style="display:block;
+    margin:auto;" alt="">
+    <h3 class="text-center">{{message}}</h3>
+    <br>
+  </div>
+  <div class="filter">
+    <app-pagination
+    [rows]="paginationService.perPage"
+    [totalRecords]="paginationService.totalCount"
+    (paginatorChange)="onChangePagination($event)"
+  ></app-pagination>
+  </div>
+</div>
+<app-footer-general class="footer"></app-footer-general>
+
+
