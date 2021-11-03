@@ -1,0 +1,68 @@
+<div [formGroup]="ProfessionalForm">
+  <div class="row">
+    <div class="col-md-6">
+        <label class="form-label">Tipo de Desarrollador</label>
+    </div>
+    <div class="col-md-6 mb-4">
+      <select class="form-select" formControlName="tipoDesarrolladorId" aria-label="Default select example">
+        <option selected>Selecciona el tipo</option>
+        <option value="1">One</option>
+        <option value="2">Two</option>
+        <option value="3">Three</option>
+      </select>
+    </div>
+  </div>
+  <div class="row">
+      <div class="col-md-6">
+          <label>Modalidad que prefiere</label>
+      </div>
+      <div class="col-md-6 mb-4">
+        <select class="form-select" formControlName="modalidadId" aria-label="Default select example">
+          <option selected>tipo de modalidad</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-md-6">
+          <label for="sueldo" class="form-label">Sueldo</label>
+      </div>
+      <div class="col-md-6 mb-4">
+        <input type="text" class="form-control" formControlName="sueldo" id="sueldo">
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-md-6">
+          <label>Tipo de pago</label>
+      </div>
+      <div class="col-md-6 mb-4">
+        <select class="form-select" formControlName="tipoPagoId" aria-label="Default select example">
+          <option selected>tipo de pago</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-md-6">
+          <label>tipo de moneda</label>
+      </div>
+      <div class="col-md-6 mb-4">
+        <select class="form-select" formControlName="monedaId" aria-label="Default select example">
+          <option selected>tipo de moneda</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-md-12">
+        <label for="experiencia" class="form-label">Experiencia</label>
+        <textarea class="form-control" formControlName="descripcion" id="experiencia" rows="4" style="resize: none;"></textarea>
+      </div>
+  </div>
+</div>

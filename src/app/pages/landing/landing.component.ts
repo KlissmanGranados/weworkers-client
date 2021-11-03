@@ -24,7 +24,7 @@ export class LandingComponent implements OnInit {
 
   aosInit(){
     AOS.init({
-      disable: this.innerWidth < 800
+      disable: this.innerWidth < 990
     });
   }
 }

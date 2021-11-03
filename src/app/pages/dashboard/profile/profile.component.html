@@ -12,14 +12,14 @@
             <li class="nav-item" role="presentation">
               <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Sobre <i *ngIf="!userRole">la empresa</i><i *ngIf="userRole">mi</i></button>
             </li>
-            <li class="nav-item" role="presentation" *ngIf="userRole">
+            <li class="nav-item" role="presentation"  *ngIf="userRole">
               <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false" >Perfil profesional</button>
             </li>
           </ul>
         </div>
       </div>
       <div class="col-md-2">
-        <button pButton pRipple type="button" label="Editar perfil" class="p-button-rounded" [style]="{'backgroundColor':'var(--indigo-500)'}"></button>
+        <button pButton pRipple type="button" label="Editar perfil" class="p-button-rounded" [style]="{'backgroundColor':'var(--indigo-500)'}" (click)="editFormMode =! editFormMode"></button>
         <!-- <input type="button" class="profile-edit-btn" name="btnAddMore" value="Editar Perfil"/> -->
         <br>
         <input *ngIf="!userRole" type="button" class="profile-proyect-btn" name="btnAddMore" routerLink="proyect" routerLink="/dashboard/form" value="Crear Proyecto"/>
@@ -27,16 +27,18 @@
     </div>
     <div class="row">
       <div class="col-md-4">
-          <div class="profile-work">
-              <p *ngIf="!userRole">Habilidades de la empresa</p>
-              <p *ngIf="userRole">Redes</p>
-              <div class="col-md-6 mb-4">
+          <div class="profile-work" *ngIf="userRole">
+              <!-- <p *ngIf="!userRole">Habilidades de la empresa</p> -->
+              <div>
+                <p>Redes</p>
+              <div class="col-md-6">
                 <select class="form-select" aria-label="Default select example">
                   <option selected>redes</option>
                   <option value="1">One</option>
                   <option value="2">Two</option>
                   <option value="3">Three</option>
                 </select>
+              </div>
               </div>
               <!-- <a href="">Web Designer</a><br/>
               <a href="">Web Developer</a><br/>
@@ -47,7 +49,7 @@
                 <p >Idiomas</p>
                 <!-- <a href="">Web Designer</a><br/> -->
                 <!-- <a href="">Web Developer</a><br/> -->
-                <div class="col-md-6 mb-4">
+                <div class="col-md-6">
                   <select class="form-select" aria-label="Default select example">
                     <option selected>idiomas</option>
                     <option value="1">One</option>
@@ -71,73 +73,56 @@
           </div>
           <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
               <ng-container *ngTemplateOutlet="detailsFreelancer"></ng-container>
+            <div *ngIf="!editFormProfessional" >
+                <div class="row">
+                  <div class="col-md-6">
+                      <label class="form-label">Tipo de Desarrollador</label>
+                  </div>
+                  <div class="col-md-6 mb-4">
+                    <p></p>
+                  </div>
+              </div>
               <div class="row">
-                <div class="col-md-6">
-                    <label class="form-label">Tipo de Desarrollador</label>
-                </div>
-                <div class="col-md-6 mb-4">
-                  <select class="form-select" aria-label="Default select example">
-                    <option selected>Selecciona el tipo</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                  </select>
-                </div>
+                  <div class="col-md-6">
+                      <label>Modalidad que prefiere</label>
+                  </div>
+                  <div class="col-md-6 mb-4">
+                    <p></p>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-6">
+                      <label for="sueldo" class="form-label">Sueldo</label>
+                  </div>
+                  <div class="col-md-6 mb-4">
+                    <p></p>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-6">
+                      <label>Tipo de pago</label>
+                  </div>
+                  <div class="col-md-6 mb-4">
+                    <p></p>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-6">
+                      <label>tipo de moneda</label>
+                  </div>
+                  <p></p>
+              </div>
+              <div class="row">
+                  <div class="col-md-12">
+                    <label for="experiencia" class="form-label">Experiencia</label>
+                    <p></p>
+                  </div>
+              </div>
             </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <label>Modalidad que prefiere</label>
-                </div>
-                <div class="col-md-6 mb-4">
-                  <select class="form-select" aria-label="Default select example">
-                    <option selected>tipo de modalidad</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                  </select>
-                </div>
+            <div *ngIf="editFormProfessional">
+              <professional-form></professional-form>
             </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <label for="sueldo" class="form-label">Sueldo</label>
-                </div>
-                <div class="col-md-6 mb-4">
-                  <input type="text" class="form-control" id="sueldo">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <label>Tipo de pago</label>
-                </div>
-                <div class="col-md-6 mb-4">
-                  <select class="form-select" aria-label="Default select example">
-                    <option selected>tipo de pago</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                  </select>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <label>tipo de moneda</label>
-                </div>
-                <div class="col-md-6 mb-4">
-                  <select class="form-select" aria-label="Default select example">
-                    <option selected>tipo de moneda</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                  </select>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                  <label for="experiencia" class="form-label">Experiencia</label>
-                  <textarea class="form-control" id="experiencia" rows="4" style="resize: none;"></textarea>
-                </div>
-            </div>
-            <button pButton pRipple type="button" label="Guardar" class="p-button-rounded mt-4 text-center" [style]="{'backgroundColor':'var(--indigo-500)'}"></button>
+            <button pButton pRipple type="button" label="Editar información" (click)="editFormProfessional =! editFormProfessional" class="p-button-rounded mt-4 text-center" [style]="{'backgroundColor':'var(--indigo-500)'}"></button>
           </div>
         </div>
       </div>
@@ -147,46 +132,51 @@
 
 
 <ng-template #dataFreelancer>
-  <div class="row">
-    <div class="col-md-6">
-        <label for="usuario" class="form-label">Usuario</label>
-    </div>
-    <div class="col-md-6 mb-4">
-        <!-- <p>{{freelancerData.perfil.usuario}}</p> -->
-        <input type="text" class="form-control" id="usuario">
-    </div>
-  </div>
-  <div class="row">
+  <div *ngIf="!editFormMode">
+    <div class="row">
       <div class="col-md-6">
-          <label for="nombre" class="form-label">Nombre</label>
+          <label for="usuario" class="form-label">Usuario</label>
       </div>
-      <div class="col-md-6 mb-4">
-          <!-- <p>{{freelancerData.perfil.primerNombre}} {{freelancerData.perfil.segundoNombre}} {{freelancerData.perfil.primerApellido}} {{freelancerData.perfil.segundoApellido}}</p> -->
-          <input type="text" class="form-control mb-2" id="nombre" placeholder="primer Nombre">
-          <input type="text" class="form-control mb-2" id="nombre" placeholder="segundo Nombre">
-          <input type="text" class="form-control mb-2" id="nombre" placeholder="primer apellido">
-          <input type="text" class="form-control mb-2" id="nombre" placeholder="segundo apellido">
-      </div>
-  </div>
-  <div class="row">
       <div class="col-md-6">
-          <label for="cedula" class="form-label">Cedula</label>
+          <p>{{freelancerData.perfil.usuario}}</p>
+          <!-- <input type="text" class="form-control" id="usuario"> -->
       </div>
-      <div class="col-md-6 mb-4">
-          <!-- <p>{{freelancerData.perfil.identificacion}}</p> -->
-          <input type="text" class="form-control" id="cedula">
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <label for="nombre" class="form-label">Nombre</label>
+        </div>
+        <div class="col-md-6">
+            <p>{{freelancerData.perfil.primerNombre}} {{freelancerData.perfil.segundoNombre}} {{freelancerData.perfil.primerApellido}} {{freelancerData.perfil.segundoApellido}}</p>
+            <!-- <input type="text" class="form-control mb-2" id="nombre" placeholder="primer Nombre">
+            <input type="text" class="form-control mb-2" id="nombre" placeholder="segundo Nombre">
+            <input type="text" class="form-control mb-2" id="nombre" placeholder="primer apellido">
+            <input type="text" class="form-control mb-2" id="nombre" placeholder="segundo apellido"> -->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <label for="cedula" class="form-label">Cedula</label>
+        </div>
+        <div class="col-md-6">
+            <p>{{freelancerData.perfil.identificacion}}</p>
+            <!-- <input type="text" class="form-control" id="cedula"> -->
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <label for="cedula" class="form-label">Correo</label>
       </div>
-  </div>
-  <div class="row">
-    <div class="col-md-6">
-      <label for="cedula" class="form-label">Correo</label>
-    </div>
-    <div class="col-md-6 mb-4">
-      <!-- <p>{{freelancerData.perfil.direccion}}</p> -->
-      <input type="text" class="form-control" id="correo">
+      <div class="col-md-6">
+        <p>{{freelancerData.perfil.direccion}}</p>
+        <!-- <input type="text" class="form-control" id="correo"> -->
+      </div>
     </div>
   </div>
-  <button pButton pRipple type="button" label="Guardar" class="p-button-rounded mt-4" [style]="{'backgroundColor':'var(--indigo-500)'}"></button>
+  <div *ngIf="editFormMode">
+    <user-form [data]="{perfil: freelancerData.perfil, type: 'freelancer'}" (saveChanges)="updateMode($event)"></user-form>
+  </div>
+  <!-- <button pButton pRipple type="button" label="Guardar" class="p-button-rounded mt-4" [style]="{'backgroundColor':'var(--indigo-500)'}"></button> -->
 </ng-template>
 
 <ng-template #dataCollector>
@@ -247,12 +237,13 @@
           <p>123 456 7890</p>
       </div>
   </div> -->
-  <!-- <div class="row">
+  <div class="row">
     <div class="col-md-6">
         <label>Descripción profesional</label>
     </div>
     <div class="col-md-6">
         <p>Web Developer and Designer</p>
     </div>
-  </div> -->
+  </div>
 </ng-template>
+

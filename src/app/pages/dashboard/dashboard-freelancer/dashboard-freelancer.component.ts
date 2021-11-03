@@ -32,7 +32,7 @@ export class DashboardFreelancerComponent implements OnInit {
 
     this.Filterservice.onSelectedlistadoProyecto().subscribe(
       (response: DataBase) => {
-        if(response !== null) {
+        if(response !== undefined && response !== null) {
           this.message = '';
           this.listadoProyecto = response.records;
           console.log('ngOnInit response.metadata',response.metadata);
@@ -43,9 +43,17 @@ export class DashboardFreelancerComponent implements OnInit {
             perPage: response.metadata.perPage,
             totalCount: response.metadata.totalCount
           });
-        } else {
+        } else if(response === undefined) {
           this.listadoProyecto = [];
           this.message = 'No se encontraron resultados para tu busqueda';
+          this.paginationService.change({
+            page: 0,
+            totalPages: 0,
+            perPage: 0,
+            totalCount: 0
+          });
+          console.log(response);
+          console.log(this.message)
         }
       }
     );
@@ -61,6 +69,7 @@ export class DashboardFreelancerComponent implements OnInit {
       this.Filterservice.getListadoProyectos(params.toString()).subscribe(
         (response: ProyectoBase) => {
           this.Filterservice.listadoProyecto = response.data;
+          this.message = '';
         }, error => {
           console.log(error);
           // colocar el mensaje de error aqui
@@ -83,60 +92,5 @@ export class DashboardFreelancerComponent implements OnInit {
     // this.getListado(this.paginationService.page, this.paginationService.perPage);
     this.paginationService.refreshListado = true;
   }
-
-
 }
-
-/***data: {metadata: {…}, records: Array(10)}
-    message: string
-     */
-
-    // nivel de data
-    /**
-     *metadata:
-        links:
-          first: "http://weworkers-server.herokuapp.com/api/v1/comun/listar-proyectos/?perPage=10&page=1"
-          last: "http://weworkers-server.herokuapp.com/api/v1/comun/listar-proyectos/?perPage=10&page=8"
-          next: "http://weworkers-server.herokuapp.com/api/v1/comun/listar-proyectos/?perPage=10&page=2"
-          previous: null
-          self: "http://weworkers-server.herokuapp.com/api/v1/comun/listar-proyectos/?perPage=10&page=1"
-          [[Prototype]]: Object
-        page: 1
-        pageCount: 10
-        perPage: 10
-        totalCount: 78
-        [[Prototype]]: Object
-      records: Array(10)
-        0:
-        descripcion: "perico"
-        estado: true
-        fechaCrea:
-          etiqueta: "30/9/2021"
-          etiquetaSemantica: "jueves, 30 de septiembre de 2021"
-          valor: "2021-09-30T00:00:00.000Z"
-          [[Prototype]]: Object
-        fechaTermina:
-          etiqueta: "7/10/2021"
-          etiquetaSemantica: "jueves, 7 de octubre de 2021"
-          valor: "2021-10-07T00:00:00.000Z"
-          [[Prototype]]: Object
-        id: 2
-        modalidadNombre: "remoto"
-        monedaId: 1
-        monedaNombreCorto: "usd"
-        monedaNombreLargo: "dólares"
-        nombre: "pan dulce de otro :c 7w7"
-        presupuesto: "200.00"
-        reclutadoresId: 16
-        tags: Array(3)
-          0: {id: 68, nombre: 'cocina'}
-          1: {id: 2, nombre: 'javascript'}
-          2: {id: 69, nombre: 'chocolate'}
-          length: 3
-          [[Prototype]]: Array(0)
-        tiposPagoId: 1
-        tiposPagoNombre: "paypal"
-        uri: string
-        length: number
-          */
 

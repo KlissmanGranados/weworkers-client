@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FilterService } from 'primeng/api';
 import { DataBaseCaptados, dataCaptados, dataCollector, ProfileBase } from 'src/app/core/models/profile.model';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { ProfileService } from 'src/app/core/services/profile.service';
@@ -15,7 +14,8 @@ export class ProfileComponent implements OnInit {
   userRole: any;
   collectorData: ProfileBase;
   freelancerData: DataBaseCaptados;
-  // perfilForm: FormGroup;
+  editFormMode: boolean = false;
+  editFormProfessional: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -29,6 +29,7 @@ export class ProfileComponent implements OnInit {
     console.log('id',this.authService.profile().idusuario);
     this.profileService.profile(this.authService.profile().idusuario).subscribe(
       response =>{
+        console.log('response',response);
         if (!this.userRole) {
           let dataResponse: dataCollector = response;
           console.log('collector data',dataResponse.data);
@@ -53,6 +54,11 @@ export class ProfileComponent implements OnInit {
 
     // )
 
+  }
+
+  updateMode(evt): void {
+    console.log(evt)
+    this.editFormMode = evt;
   }
 
 }

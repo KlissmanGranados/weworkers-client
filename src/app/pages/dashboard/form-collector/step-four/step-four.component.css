@@ -27,6 +27,6 @@
 
 ::ng-deep .end-aling{
   display: flex !important;
-  justify-content: end;
+  /* justify-content: end; */
 }
 

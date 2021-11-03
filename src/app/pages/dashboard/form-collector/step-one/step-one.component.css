@@ -21,7 +21,7 @@
 
 .aling-style{
   display: flex;
-  justify-content: end !important;
+  /* justify-content: end !important; */
 }
 
 @media screen and (max-width: 600px){

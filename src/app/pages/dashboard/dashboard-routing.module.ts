@@ -6,6 +6,7 @@ import { DashboardFreelancerComponent } from './dashboard-freelancer/dashboard-f
 import { DashboardComponent } from './dashboard.component';
 import { PoliticasComponent } from './politicas/politicas.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ProjectDataComponent } from './project-data/project-data.component';
 import { ProyectsComponent } from './proyects/proyects.component';
 
 const routes: Routes = [
@@ -16,6 +17,7 @@ const routes: Routes = [
     {path:'chat', component: ChatComponent},
     {path:'profile', component: ProfileComponent},
     {path:'proyects', component: ProyectsComponent},
+    {path:'project-data', component: ProjectDataComponent},
     {path:'form', loadChildren: () => import('./form-collector/form-collector.module').then(m => m.FormCollectorModule)}
   ]},
 ];

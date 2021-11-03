@@ -16,6 +16,17 @@ export class ProfileService {
   }
 
   profileDetails(json): Observable<any>{
-    return this.http.put<any>(`${this.urlApi}/captado/perfil-detalles`, json, {headers: this.headers})
+    return this.http.put<any>(`${this.urlApi}/captado/perfil-detalles`, json, {headers: this.headers});
   }
+
+  //actualizar datos para ambos roles
+  updatePersona(json): Observable<any>{
+    return this.http.put<any>(`${this.urlApi}/comun/persona/`, json, {headers: this.headers});
+  }
+
+  //actualizar usuario y contraseña
+  updateUser(json): Observable<any>{
+    return this.http.put<any>(`${this.urlApi}/comun/usuario/`, json, {headers: this.headers});
+  }
+
 }

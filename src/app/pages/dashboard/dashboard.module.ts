@@ -17,11 +17,15 @@ import {PaginatorModule} from 'primeng/paginator';
 
 import { DashboardComponent } from './dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PoliticasComponent } from './politicas/politicas.component';
 import { ChatComponent } from './chat/chat.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ProyectsComponent } from './proyects/proyects.component';
 import { ProfileService } from 'src/app/core/services/profile.service';
+import { ProjectDataComponent } from './project-data/project-data.component';
+import { UserFormComponent } from './profile/components/user-form/user-form.component';
+import { ProfessionalFormComponent } from './profile/components/professional-form/professional-form.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +35,10 @@ import { ProfileService } from 'src/app/core/services/profile.service';
     PoliticasComponent,
     ChatComponent,
     ProfileComponent,
-    ProyectsComponent
+    ProyectsComponent,
+    ProjectDataComponent,
+    UserFormComponent,
+    ProfessionalFormComponent
   ],
   imports: [
     CommonModule,
@@ -43,7 +50,9 @@ import { ProfileService } from 'src/app/core/services/profile.service';
     TableModule,
     TagModule,
     BadgeModule,
-    PaginatorModule
+    PaginatorModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     DashboardCollectorComponent

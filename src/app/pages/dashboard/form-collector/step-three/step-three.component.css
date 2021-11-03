@@ -27,5 +27,5 @@
 
 ::ng-deep .aling-style{
   display: flex !important;
-  justify-content: end;
+  /* justify-content: end; */
 }

@@ -69,7 +69,7 @@ export class SidebarComponent implements OnInit, OnChanges {
       response => {
         if(response) {
     //       //descomentar no borrar posible solucion
-          console.log('onSelectedrefreshListado',response);
+          console.log('response',response);
           this.sendParams(this.paginationService.page, this.paginationService.perPage, this.formControlFilter.getRawValue());
         }
       }
@@ -153,7 +153,7 @@ export class SidebarComponent implements OnInit, OnChanges {
       this.filtersServices.getListadoProyectos(params.toString()).subscribe(
         (response: ProyectoBase) => {
           if (Object.keys(response.data.records).length === 0) {
-            this.filtersServices.listadoProyecto = null;
+            this.filtersServices.listadoProyecto = undefined;
             Swal.fire({
               icon: 'error',
               title: 'Oops...',

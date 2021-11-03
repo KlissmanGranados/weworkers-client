@@ -1,7 +1,7 @@
 
 <app-sidebar></app-sidebar>
 <div class="page-wrapper">
-  <div  class="welcome-card" *ngIf="welcome">
+  <div class="welcome-card" *ngIf="welcome">
     <p-card header="¡Hola, Bienvenido a We Workers!" [style]="{'width': 'auto', 'margin': '2em 3rem', 'display': 'flex'}">
       <ng-template pTemplate="header">
           <img alt="Card" src="../../../../assets/landing/cards/card-3.gif">
@@ -30,7 +30,7 @@
               </div>
             </div>
             <div class="col-md-6 button-aling">
-              <button pButton pRipple type="button" label="Aplicar al proyeto" class="p-button-rounded" [style]="{'backgroundColor':'var(--indigo-600)','margin-bottom':'0.5rem','margin-right': '1em'}"></button>
+              <button pButton pRipple type="button" routerLink="/dashboard/project-data" label="Aplicar al proyeto" class="p-button-rounded" [style]="{'backgroundColor':'var(--indigo-600)','margin-bottom':'0.5rem','margin-right': '1em'}"></button>
               <ul class="payment-aling">
                 <li style="padding-right: 0.2rem; text-transform: capitalize;">{{proyecto.tiposPagoNombre}}</li>
                 <li>{{proyecto.presupuesto}} {{proyecto.monedaNombreCorto}}</li>
@@ -41,7 +41,7 @@
       <!-- <p-divider></p-divider> -->
       </div>
   </div>
-  <div *ngIf="message !== '' && listadoProyecto.length === 0">
+  <div *ngIf="message !== '' && listadoProyecto === undefined">
     <img class="text-center" src="../../../../assets/images/Dashboard/message.gif" height="200px" style="display:block;
     margin:auto;" alt="">
     <h3 class="text-center">{{message}}</h3>
