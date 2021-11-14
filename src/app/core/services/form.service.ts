@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -10,7 +10,7 @@ import { proyecto } from '../models/forms.model';
 })
 export class FormService {
   urlApi = environment.apiBase;
-
+  headers = new HttpHeaders({'token': localStorage.getItem("tk")});
   constructor(private http: HttpClient) { }
 
   formCollectorInformation = {
@@ -19,15 +19,13 @@ export class FormService {
       descripcion: '',
       fechaCrea:'',
       fechaTermina:'',
-      estado: '',
       presupuesto: '',
       monedasId: '',
       tiposPagoId: '',
+      estado: 'TRUE',
       modalidadesId: '',
     },
-    tags: {
-      etiqueta: '',
-    }
+    tags: []
   };
 
   private formComplete = new Subject<any>();
@@ -43,10 +41,14 @@ export class FormService {
   }
 
   complete() {
-    this.formComplete.next(this.formCollectorInformation.proyecto);
+    this.formComplete.next(this.formCollectorInformation);
   }
 
   proyecto(json: any): Observable<any>{
-    return this.http.post<proyecto>(`${this.urlApi}/captador/proyecto`, json);
+    return this.http.post<proyecto>(`${this.urlApi}/captador/proyecto`, json, {headers: this.headers});
+  }
+
+  actualizarProyecto(json: any): Observable<any>{
+    return this.http.put<any>(`${this.urlApi}/captador/actualizar-proyecto`, json, {headers: this.headers} )
   }
 }

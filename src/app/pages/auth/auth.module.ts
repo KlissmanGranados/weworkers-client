@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { ValidateRegistrationComponent } from './validate-registration/validate-registration.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { RouterModule } from '@angular/router';
     LoginComponent,
     RecordTypeComponent,
     RegisterCollectorComponent,
-    RegisterFreelancerComponent
+    RegisterFreelancerComponent,
+    ValidateRegistrationComponent
   ],
   imports: [
     CommonModule,

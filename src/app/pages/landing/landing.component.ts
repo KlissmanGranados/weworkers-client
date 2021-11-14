@@ -10,9 +10,16 @@ export class LandingComponent implements OnInit {
   innerWidth: number;
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.innerWidth = window.innerWidth;
     this.aosInit();
+    AOS.refresh();
+  }
+
+  aosInit(){
+    AOS.init({
+      disable: this.innerWidth < 990
+    });
   }
 
   ngAfterViewChecked(){
@@ -22,9 +29,4 @@ export class LandingComponent implements OnInit {
     }
   }
 
-  aosInit(){
-    AOS.init({
-      disable: this.innerWidth < 990
-    });
-  }
 }

@@ -54,15 +54,23 @@ export class FiltersService {
     return this.http.get<tiposPago[]>(`${this.urlApi}/public/tipos-pago/`);
   }
 
-  listarRedes(): Observable<any>{
-    return this.http.get<listarRedes[]>(`${this.urlApi}/public/redes/`)
+  modalidades(): Observable<any>{
+    return this.http.get<modalidades[]>(`${this.urlApi}/public/modalidad/`);
   }
 
-  modalidades(): Observable<any>{
-    return this.http.get<modalidades[]>(`${this.urlApi}/public/modalidad/`)
+  listarRedes(): Observable<any>{
+    return this.http.get<listarRedes[]>(`${this.urlApi}/public/redes/`);
   }
 
   idiomas(): Observable<any>{
-    return this.http.get<idiomas[]>(`${this.urlApi}/public/idiomas`)
+    return this.http.get<idiomas[]>(`${this.urlApi}/public/idiomas`);
+  }
+
+  tipodeDesarrollador(): Observable<any>{
+    return this.http.get(`${this.urlApi}/public/tipos-desarrollador/`, {headers: this.headers});
+  }
+
+  updateIdiomas(json): Observable<any>{
+    return this.http.put<any>(`${this.urlApi}/comun/idioma-nuevo`, json, {headers: this.headers})
   }
 }

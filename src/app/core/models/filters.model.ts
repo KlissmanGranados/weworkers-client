@@ -17,12 +17,12 @@ export interface tiposPago{
   id:number;
 }
 
-export interface listarRedes{
+export interface modalidades{
   nombre:string;
   id: number;
 }
 
-export interface modalidades{
+export interface listarRedes{
   nombre:string;
   id: number;
 }
@@ -31,4 +31,10 @@ export interface idiomas{
   id: number;
   nombreCorto: string;
   nombreLargo: string;
+}
+
+export interface tipodeDesarrollador{
+  id: number;
+  nombre: string;
+  descripcion: string;
 }

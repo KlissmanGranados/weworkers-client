@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 import { FormCollectorRoutingModule } from './form-collector-routing.module';
 import { FormCollectorComponent } from './form-collector.component';
@@ -19,6 +19,7 @@ import { StepThreeComponent } from './step-three/step-three.component';
 import { StepFourComponent } from './step-four/step-four.component';
 import { StepFiveComponent } from './step-five/step-five.component';
 import { RouterModule } from '@angular/router';
+import {ChipsModule} from 'primeng/chips';
 
 
 @NgModule({
@@ -40,11 +41,13 @@ import { RouterModule } from '@angular/router';
     ReactiveFormsModule,
     InputTextModule,
     ButtonModule,
-    RouterModule
+    RouterModule,
+    ChipsModule
   ],
   providers: [
     MessageService,
-    FormService
+    FormService,
+    DatePipe
   ]
 })
 export class FormCollectorModule { }
