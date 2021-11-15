@@ -17,7 +17,7 @@ import {PaginatorModule} from 'primeng/paginator';
 
 import { DashboardComponent } from './dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms/';
 import { PoliticasComponent } from './politicas/politicas.component';
 import { ChatComponent } from './chat/chat.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -26,6 +26,8 @@ import { ProfileService } from 'src/app/core/services/profile.service';
 import { ProjectDataComponent } from './project-data/project-data.component';
 import { UserFormComponent } from './profile/components/user-form/user-form.component';
 import { ProfessionalFormComponent } from './profile/components/professional-form/professional-form.component';
+import { ChatManagerService } from 'src/app/core/services/chat-manager.service';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @NgModule({
   declarations: [
@@ -58,7 +60,9 @@ import { ProfessionalFormComponent } from './profile/components/professional-for
     DashboardCollectorComponent
   ],
   providers:[
-    ProfileService
+    ProfileService,
+    ChatManagerService,
+    AuthService
   ]
 })
 export class DashboardModule { }
