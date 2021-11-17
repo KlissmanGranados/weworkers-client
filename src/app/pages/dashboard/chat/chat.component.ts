@@ -19,6 +19,7 @@ export class ChatComponent implements OnInit {
   chatIds = [];
   currentChat;
   currentUser;
+  currentReceived;
   newMessage = '';
   messages = [];
 
@@ -37,17 +38,22 @@ export class ChatComponent implements OnInit {
       console.log(data);
     });
     this.chatManager.listen('chat:answer').subscribe((data) => {
+      this.messages.push(
+        {
+          mensaje:data.mensaje,
+          chat_id:data.chat_id,
+          usuarios_id:data.id,
+          timestamp:data.timestamp,
+          time:this.timeFormat(data.timestamp)
+        }
+      )
       console.log(data);
     });
     this.chatManager.listen('chat:messages').subscribe((data) => {
       let timeArray = [];
 
       for( let message of data) {
-          message.timestamp = new Date(message.timestamp);
-          timeArray =  message.timestamp.toTimeString().split(' ')[0].split(':');
-          timeArray.pop();
-          message.time =timeArray.join(':')
-          +', '+message.timestamp.toLocaleDateString('en-GB');
+          message.time = this.timeFormat(new Date(message.timestamp))
           this.messages.push(message);
       }
       this.messages.shift();
@@ -63,11 +69,12 @@ export class ChatComponent implements OnInit {
     this.chatManager.disconnect();
   }
 
-  selectChat(chatId: number): void {
+  selectChat(chatId: number, receivedId:number): void {
     if(chatId !== this.currentChat) {
       this.messages = [];
       this.chatManager.selectChat(chatId);
       this.currentChat = chatId;
+      this.currentReceived = receivedId;
     }
   }
 
@@ -75,12 +82,26 @@ export class ChatComponent implements OnInit {
     return this.currentUser.idusuario == senderId;
   }
 
+  timeFormat(date:Date):String {
+    const timeArray = date.toTimeString().split(' ')[0].split(':');
+    timeArray.pop();
+    return timeArray.join(':')+', '+date.toLocaleDateString('en-GB');
+  }
+
   sendMessage() {
     if(!this.newMessage.replace(/\s/g, '').length) {
       console.log('mensaje vacío');
     }
     else {
-      console.log(this.newMessage);
+      this.chatManager
+      .sendMessage(this.currentReceived, this.currentChat, this.newMessage);
+      this.messages.push({
+        mensaje:this.newMessage,
+        chat_id:this.currentChat,
+        usuarios_id:Number(this.currentUser.idusuario),
+        timestamp:new Date(),
+        time:this.timeFormat(new Date())
+      });
       this.newMessage = '';
     }
   }

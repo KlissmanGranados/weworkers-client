@@ -31,7 +31,7 @@
             <!--contact list-->
             <div class="chat_list"
             *ngFor="let contact of contactList"
-            (click)="selectChat(contact.chat_id)">
+            (click)="selectChat(contact.chat_id, contact.id)">
               <div class="chat_people">
                 <div class="chat_ib">
                   <h5>
