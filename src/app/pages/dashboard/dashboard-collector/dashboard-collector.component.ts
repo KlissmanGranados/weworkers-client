@@ -4,6 +4,8 @@ import { CaptadosBase, DataBaseCaptados, Records } from 'src/app/core/models/cap
 import { AuthService } from 'src/app/core/services/auth.service';
 import { FiltersService } from 'src/app/core/services/filters.service';
 import { PaginationService } from 'src/app/core/services/pagination.service';
+import { ProfileService } from 'src/app/core/services/profile.service';
+
 @Component({
   selector: 'app-dashboard-collector',
   templateUrl: './dashboard-collector.component.html',
@@ -18,6 +20,7 @@ export class DashboardCollectorComponent implements OnInit {
     private authService: AuthService,
     private Filterservice: FiltersService,
     public paginationService: PaginationService,
+    // private profileService: ProfileService
   ) {
     this.userRole = this.authService.getUserRole();
   }
@@ -53,6 +56,7 @@ export class DashboardCollectorComponent implements OnInit {
       this.Filterservice.getListadoFreelancer(params.toString()).subscribe(
         (response: CaptadosBase) => {
           this.Filterservice.listadoFreelancer = response.data;
+          // this.getdetailCaptado(response.data.id);
         }, error => {
           console.log(error);
           // colocar el mensaje de error aqui
@@ -70,6 +74,23 @@ export class DashboardCollectorComponent implements OnInit {
     });
 
     this.paginationService.refreshListado = true;
+  }
+
+  // getdetailCaptado(id){
+  //   this.profileService.profile(id).subscribe(
+  //     response =>{
+  //       console.log(response)
+  //       console.log(id)
+  //       return true;
+  //     }, error =>{
+  //       console.log(error)
+  //       return false
+  //     }
+  //   );
+  // }
+
+  ngOnDestroy() {
+    this.Filterservice.resetValues();
   }
 
 }

@@ -21,13 +21,13 @@ import { ChipsModule } from 'primeng/chips';
 import {PaginatorModule} from 'primeng/paginator';
 
 
-import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MultiDropdownComponent } from './multi-dropdown/multi-dropdown.component';
 import { FiltersService } from '../core/services/filters.service';
 import { AuthService } from '../core/services/auth.service';
 import { PaginationComponent } from './pagination/pagination.component';
 import { PaginationService } from '../core/services/pagination.service';
+import { LoadComponent } from './load/load.component';
 
 
 
@@ -38,7 +38,8 @@ import { PaginationService } from '../core/services/pagination.service';
     SidebarComponent,
     RightSidebarComponent,
     MultiDropdownComponent,
-    PaginationComponent
+    PaginationComponent,
+    LoadComponent
   ],
   imports: [
     CommonModule,
@@ -56,8 +57,7 @@ import { PaginationService } from '../core/services/pagination.service';
     ChipsModule,
     PaginatorModule,
     FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule
+    ReactiveFormsModule
   ],
   exports: [
     NavbarGeneralComponent,

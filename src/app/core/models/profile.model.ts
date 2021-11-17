@@ -41,22 +41,48 @@ export interface DataBaseCaptados{
 }
 
 export interface Perfil{
-  direccion: string;
-  estado: boolean;
   id: number;
+  usuario: string;
+  personaId: number;
+  rolesId: number;
+  estado: boolean;
   idTipoIdentificacion: number;
   identificacion: string;
-  idiomas: idiomas;
-  personaId: number;
-  primerApellido: string;
   primerNombre: string;
-  proyectos: proyectos;
-  redes: redes;
-  rolesId: number;
-  segundoApellido: string;
+  primerApellido: string;
   segundoNombre: string;
-  tags: tags;
-  usuario: string;
+  segundoApellido: string;
+  direccion: string;
+  sueldo: number | null;
+  descripcion: string | null;
+  tipoDesarrollador: number | null;
+  modalidad: string | null;
+  tipoPago: string | null;
+  monedaNombreLargo: string | null;
+  monedaNombreCorto: string | null;
+  empresa: empresa;
+
+  // direccion: string;
+  // estado: boolean;
+  // id: number;
+  // idTipoIdentificacion: number;
+  // identificacion: string;
+  idiomas?: idiomas[];
+  // personaId: number;
+  // primerApellido: string;
+  // primerNombre: string;
+  // proyectos: proyectos;
+  redes?: redes[];
+  // rolesId: number;
+  // segundoApellido: string;
+  // segundoNombre: string;
+  tags?: tags[];
+  // usuario: string;
+}
+
+export interface empresa{
+  rif: number;
+  razonSocial: string;
 }
 
 export interface proyectos{
@@ -65,6 +91,19 @@ export interface proyectos{
 
 export interface redes{
   nombre: string;
+  id: number,
+  timestamp?: Timestamp;
+  redUsuario?: string;
 }
 
+export interface Timestamp{
+  etiqueta: string;
+  etiquetaSemantica: string;
+  valor: Valor;
+}
 
+export interface Valor{
+  etiqueta: string;
+  etiquetaSemantica: string;
+  valor: string;
+}

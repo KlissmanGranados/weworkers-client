@@ -35,7 +35,7 @@
       </ul>
     </div>
     <div class="d-flex" class="container-icons">
-      <button type="button" pButton icon="far fa-bell" class="icon-button" (click)="notifications.toggle($event)" [style]="{'backgroundColor':'var(--indigo-500)', 'border' : 'none', 'font-size': '28px'}"></button>
+      <!-- <button type="button" pButton icon="far fa-bell" class="icon-button" (click)="notifications.toggle($event)" [style]="{'backgroundColor':'var(--indigo-500)', 'border' : 'none', 'font-size': '28px'}"></button> -->
       <p-menu #notifications [popup]="true" [model]="message"></p-menu>
       <button type="button" pButton icon="fas fa-smile-beam" class="icon-button" (click)="menuuser.toggle($event)" [style]="{'backgroundColor':'var(--indigo-500)', 'border' : 'none', 'font-size': '28px'}"></button>
       <p-menu #menuuser [popup]="true" [model]="gfg"></p-menu>
