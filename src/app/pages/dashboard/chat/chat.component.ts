@@ -38,19 +38,19 @@ export class ChatComponent implements OnInit {
       console.log(data);
     });
     this.chatManager.listen('chat:answer').subscribe((data) => {
+      const currentTime = new Date();
       this.messages.push(
         {
-          mensaje:data.mensaje,
+          mensaje:data.message,
           chat_id:data.chat_id,
-          usuarios_id:data.id,
-          timestamp:data.timestamp,
-          time:this.timeFormat(data.timestamp)
+          usuarios_id:data.to,
+          timestamp:currentTime,
+          time:this.timeFormat(currentTime)
         }
       )
       console.log(data);
     });
     this.chatManager.listen('chat:messages').subscribe((data) => {
-      let timeArray = [];
 
       for( let message of data) {
           message.time = this.timeFormat(new Date(message.timestamp))
