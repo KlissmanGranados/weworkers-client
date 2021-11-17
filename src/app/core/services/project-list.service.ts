@@ -10,6 +10,7 @@ import { DataBase } from '../models/proyect.model';
 export class ProjectListService {
   urlApi = environment.apiBase;
   private _proyectList: BehaviorSubject<DataBase> = new BehaviorSubject<DataBase>(null);
+  private _freelanceList: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
   public get proyectList(): any {
     return this._proyectList.getValue();
@@ -21,14 +22,33 @@ export class ProjectListService {
     return this._proyectList.asObservable();
   }
 
+  public get freelanceList(): any {
+    return this._freelanceList.getValue();
+  }
+  public set freelanceList(lista: any) {
+    this._freelanceList.next(lista);
+  }
+  public onSelectedfreelanceList(): Observable<any> {
+    return this._freelanceList.asObservable();
+  }
+
   constructor(private http: HttpClient) { }
-  headers = new HttpHeaders({'token': localStorage.getItem("tk")});
 
   listarProyectos(parametros: string): Observable<any>{
-    return this.http.get<any>(`${this.urlApi}/comun/listar-proyectos/?usuario=true&${parametros}`, {headers: this.headers});
+    return this.http.get<any>(`${this.urlApi}/comun/listar-proyectos/?usuario=true&${parametros}`);
   }
 
   detallesProyecto(idProyecto: number): Observable<any>{
-    return this.http.get<any>(`${this.urlApi}/comun/proyecto/${idProyecto}`, {headers: this.headers})
+    return this.http.get<any>(`${this.urlApi}/comun/proyecto/${idProyecto}`);
+  }
+
+  //captados
+  listadoPropuestas(idProyecto: number, parametros: string): Observable<any>{
+    return this.http.get<any>(`${this.urlApi}/captador/listar-propuestas/?idProyecto=${idProyecto}&${parametros}`);
+  }
+
+  resetValues() {
+    this.proyectList = null;
+    this.freelanceList = null;
   }
 }

@@ -21,21 +21,20 @@ export class QuestionnaireService {
   }
 
   constructor(private http: HttpClient) { }
-  headers = new HttpHeaders({'token': localStorage.getItem("tk")});
 
   crearCuestionario(json): Observable<any>{
-    return this.http.post<any>(`${this.urlApi}/captador/cuestionario/crear`, json, {headers: this.headers});
+    return this.http.post<any>(`${this.urlApi}/captador/cuestionario/crear`, json);
   }
 
   eliminarCuestionario(proyectoId): Observable<any>{
-    return this.http.delete<any>(`${this.urlApi}/captador/cuestionario/eliminar/${proyectoId}`, {headers: this.headers});
+    return this.http.delete<any>(`${this.urlApi}/captador/cuestionario/eliminar/${proyectoId}`);
   }
 
   seleccionarCuestionario(proyectoId): Observable<any>{
-    return this.http.get<any>(`${this.urlApi}/comun/cuestionario/${proyectoId}`,  {headers: this.headers});
+    return this.http.get<any>(`${this.urlApi}/comun/cuestionario/${proyectoId}`);
   }
 
   responderCuestionario(json): Observable<any>{
-    return this.http.post<any>(`${this.urlApi}/captado/cuestionario/`, json, {headers: this.headers});
+    return this.http.post<any>(`${this.urlApi}/captado/cuestionario/`, json);
   }
 }

@@ -16,7 +16,6 @@ import {PaginatorModule} from 'primeng/paginator';
 
 
 import { DashboardComponent } from './dashboard.component';
-import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PoliticasComponent } from './politicas/politicas.component';
 import { ChatComponent } from './chat/chat.component';
@@ -38,7 +37,7 @@ import { ModalTagsComponent } from './profile/components/modal-tags/modal-tags.c
 import { QuizPresentationComponent } from './quiz-presentation/quiz-presentation.component';
 import { ProjectListService } from 'src/app/core/services/project-list.service';
 import { QuestionnaireService } from 'src/app/core/services/questionnaire.service';
-
+import { PreviewProfileComponent } from './preview-profile/preview-profile.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +56,8 @@ import { QuestionnaireService } from 'src/app/core/services/questionnaire.servic
     CreateQuestionnaireComponent,
     ModalRedesComponent,
     ModalTagsComponent,
-    QuizPresentationComponent
+    QuizPresentationComponent,
+    PreviewProfileComponent
   ],
   imports: [
     CommonModule,
@@ -83,7 +83,7 @@ import { QuestionnaireService } from 'src/app/core/services/questionnaire.servic
     ProfileService,
     AuthService,
     ProjectListService,
-    QuestionnaireService
+    QuestionnaireService,
   ],
   schemas:[
     CUSTOM_ELEMENTS_SCHEMA

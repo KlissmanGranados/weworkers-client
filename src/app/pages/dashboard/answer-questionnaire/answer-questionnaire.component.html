@@ -27,8 +27,7 @@
   </div>
 
   <div *ngIf="puntaje!==null">
-    <h4>¡Gracias! el cuestionario ha sido finalizado y la puntuación obtenida es de:</h4>
-    <h5>{{puntaje.data.puntaje}}</h5>
+    <h4>¡Gracias! el cuestionario ha sido finalizado y la puntuación obtenida es de:</h4><h5>{{puntaje.data.puntaje}}</h5>
     <div class="row">Redirigir a:
       <div class="col">
         <p-button label="detalles del proyecto" routerLink="/dashboard/project-data/{{quizArray.data.cuestionario.proyectosId}}" [style]="{'backgroundColor':'var(--indigo-600'}"></p-button>

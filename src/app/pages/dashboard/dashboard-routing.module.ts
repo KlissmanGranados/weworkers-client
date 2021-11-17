@@ -7,6 +7,7 @@ import { DashboardCollectorComponent } from './dashboard-collector/dashboard-col
 import { DashboardFreelancerComponent } from './dashboard-freelancer/dashboard-freelancer.component';
 import { DashboardComponent } from './dashboard.component';
 import { PoliticasComponent } from './politicas/politicas.component';
+import { PreviewProfileComponent } from './preview-profile/preview-profile.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ProjectDataComponent } from './project-data/project-data.component';
 import { ProjectsComponent } from './projects/projects.component';
@@ -24,6 +25,7 @@ const routes: Routes = [
     {path:'answer', component:AnswerQuestionnaireComponent},
     {path:'create-questionnaire/:id/:type', component:CreateQuestionnaireComponent},
     {path:'quiz-presentation', component: QuizPresentationComponent},
+    {path:'preview-profile/:id', component: PreviewProfileComponent},
     {path:'form', loadChildren: () => import('./form-collector/form-collector.module').then(m => m.FormCollectorModule)}
   ]},
 ];

@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { FiltersService } from 'src/app/core/services/filters.service';
 import { PaginationService } from 'src/app/core/services/pagination.service';
 import { ProfileService } from 'src/app/core/services/profile.service';
+
 @Component({
   selector: 'app-dashboard-collector',
   templateUrl: './dashboard-collector.component.html',
@@ -87,5 +88,9 @@ export class DashboardCollectorComponent implements OnInit {
   //     }
   //   );
   // }
+
+  ngOnDestroy() {
+    this.Filterservice.resetValues();
+  }
 
 }

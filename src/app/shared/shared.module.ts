@@ -21,7 +21,6 @@ import { ChipsModule } from 'primeng/chips';
 import {PaginatorModule} from 'primeng/paginator';
 
 
-import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MultiDropdownComponent } from './multi-dropdown/multi-dropdown.component';
 import { FiltersService } from '../core/services/filters.service';
@@ -58,8 +57,7 @@ import { LoadComponent } from './load/load.component';
     ChipsModule,
     PaginatorModule,
     FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule
+    ReactiveFormsModule
   ],
   exports: [
     NavbarGeneralComponent,

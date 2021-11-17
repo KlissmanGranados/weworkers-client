@@ -1,7 +1,9 @@
 import { HttpParams } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { PaginationService } from 'src/app/core/services/pagination.service';
+import { ProfileService } from 'src/app/core/services/profile.service';
 import { ProjectListService } from 'src/app/core/services/project-list.service';
 
 @Component({
@@ -9,36 +11,40 @@ import { ProjectListService } from 'src/app/core/services/project-list.service';
   templateUrl: './projects.component.html',
   styleUrls: ['./projects.component.css']
 })
-export class ProjectsComponent implements OnInit {
+export class ProjectsComponent implements OnInit, OnDestroy {
   listarProyectos: any;
   userRole: any;
+  supscription: Subscription;
+  supscriptionPagination: Subscription;
 
   constructor(
     private projectListService: ProjectListService,
     public paginationService: PaginationService,
     private authService: AuthService,
+    private profileService: ProfileService
   ) {
     this.userRole = this.authService.getUserRole();
 
-    this.projectListService.onSelectedProyectList().subscribe(
+    this.supscription = this.projectListService.onSelectedProyectList().subscribe(
       (response: any) => {
-        if(response !== null) {
-          this.listarProyectos = response.records;
-          // console.log('ngOnInit response.metadata',response);
+        if(this.userRole.rolesid === 2) {
+          if(response !== null) {
+            this.listarProyectos = response.records;
 
           this.paginationService.change({
-            page: response.metadata.page,
-            totalPages: response.metadata.totalPages,
-            perPage: response.metadata.perPage,
-            totalCount: response.metadata.totalCount
-          });
-        } else {
-          this.listarProyectos = [];
+              page: response.metadata.page,
+              totalPages: response.metadata.totalPages,
+              perPage: response.metadata.perPage,
+              totalCount: response.metadata.totalCount
+            });
+          } else {
+            this.listarProyectos = [];
+          }
         }
       }
     );
 
-    this.paginationService.onSelectedrefreshListado().subscribe(
+    this.supscriptionPagination = this.paginationService.onSelectedrefreshListado().subscribe(
       response => {
         if(response) {
           this.getListado(this.paginationService.page, this.paginationService.perPage);
@@ -49,7 +55,11 @@ export class ProjectsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getListado(1, 10);
+  }
 
+  ngOnDestroy(): void {
+    this.paginationService.resetValues();
+    this.projectListService.resetValues();
   }
 
   getListado(page: number, perPage: number){
@@ -68,6 +78,21 @@ export class ProjectsComponent implements OnInit {
             // Mensaje de no posee propyectos o propuestas
           }
         }, error =>{
+          console.log(error)
+        }
+      );
+    } else if(this.userRole.rolesid === 1) {
+      let userId = this.authService.profile()?.idusuario;
+      this.profileService.profile(userId).subscribe(
+        response => {
+          console.log('response', response);
+          if(response.data.perfil.proyectos.length > 0) {
+            this.listarProyectos = response.data.perfil.proyectos;
+          } else {
+            this.listarProyectos = [];
+            // Mensaje de no posee propyectos o propuestas
+          }
+        }, error => {
           console.log(error)
         }
       );

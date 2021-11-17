@@ -1,7 +1,7 @@
 <p-card [style]="{'margin-bottom': '2em'}">
   <div class="row">
   <div class="col-md-6">
-    <form [formGroup]="questionnaireForm" (ngSubmit)="onSubmitQuestionnaire(questionnaireForm.value)">
+    <form [formGroup]="questionnaireForm" (ngSubmit)="onSubmitQuestionnaire(questionnaireForm.value)" autocomplete="off">
       <div class="form-group">
         <!-- <input class="form-control" formControlName="proyectosId"> este id se maneja solo dentro de la lógica-->
         <div formArrayName="preguntas">
@@ -102,13 +102,13 @@
     <br>
     <button *ngIf="type === 'ver'" (click)="deleteQuiz()" type="button" class="btn" style="background-color: #C70B0B; border: none; color: #fff;">Eliminar cuestionario</button>
   </div>
-  <div class="col-md-5">
+  <div class="col-md-6">
     <img src="../../../../assets/images/questionary/parte-4.png" alt="" style="max-width:100%; height: auto;">
     <h5 class="text-center">Instrucciones a seguir</h5>
     <ul>
-      <li class="mb-2 text-justify"><i class="pi pi-check icon"></i> Para agregar una nueva pregunta, se debe seleccionar al boton que indica "crear cuestionario".</li>
-      <li class="mb-2 text-justify"><i class="pi pi-check icon"></i> Para agregar la cantidad de respuestas que desees, se debe dar click en el boton de "agregar respuesta".</li>
-      <li class="mb-2 text-justify"><i class="pi pi-check icon"></i> Indica por cada una de las preguntas la respuesta correcta de la misma utilizando los checkbox que estan a un lado del campo para ingresar la respuesta.</li>
+      <li class="mb-2 text-justify">Para agregar una nueva pregunta, se debe seleccionar al boton que indica "crear cuestionario".</li>
+      <li class="mb-2 text-justify">Para agregar la cantidad de respuestas que desees, se debe dar click en el boton de "agregar respuesta".</li>
+      <li class="mb-2 text-justify">Indica por cada una de las preguntas la respuesta correcta de la misma utilizando los checkbox que estan a un lado del campo para ingresar la respuesta.</li>
     </ul>
   </div>
 </div>

@@ -35,15 +35,13 @@ export class FiltersService {
   }
 
   constructor(private http: HttpClient) { }
-  headers = new HttpHeaders({'token': localStorage.getItem("tk")});
-
 
   getListadoProyectos(parametros: string): Observable<any>{
-    return this.http.get(`${this.urlApi}/comun/listar-proyectos/?${parametros}`, { headers: this.headers});
+    return this.http.get(`${this.urlApi}/comun/listar-proyectos/?${parametros}`);
   }
 
   getListadoFreelancer(parametros: string): Observable<any>{
-    return this.http.get(`${this.urlApi}/comun/usuario/?${parametros}`, {headers: this.headers});
+    return this.http.get(`${this.urlApi}/comun/usuario/?${parametros}`);
   }
 
   moneda(): Observable<any>{
@@ -67,10 +65,15 @@ export class FiltersService {
   }
 
   tipodeDesarrollador(): Observable<any>{
-    return this.http.get(`${this.urlApi}/public/tipos-desarrollador/`, {headers: this.headers});
+    return this.http.get(`${this.urlApi}/public/tipos-desarrollador/`);
   }
 
   updateIdiomas(json): Observable<any>{
-    return this.http.put<any>(`${this.urlApi}/comun/idioma-nuevo`, json, {headers: this.headers})
+    return this.http.put<any>(`${this.urlApi}/comun/idioma-nuevo`, json)
+  }
+
+  resetValues() {
+    this.listadoProyecto = null;
+    this.listadoFreelancer = null;
   }
 }

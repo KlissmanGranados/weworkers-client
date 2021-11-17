@@ -8,7 +8,6 @@ import { RegisterCollectorComponent } from './register-collector/register-collec
 import { RegisterFreelancerComponent } from './register-freelancer/register-freelancer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { ValidateRegistrationComponent } from './validate-registration/validate-registration.component';
 
@@ -26,7 +25,6 @@ import { ValidateRegistrationComponent } from './validate-registration/validate-
     AuthRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule,
     RouterModule
   ],
   exports: [
