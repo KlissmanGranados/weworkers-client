@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class ChatManagerService {
 
-  urlApi = "http://localhost:3000/";
+  urlApi = "https://weworkers-server.herokuapp.com/";
   socket;
   token = this.authService.gettoken();
 

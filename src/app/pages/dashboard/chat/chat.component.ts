@@ -19,6 +19,7 @@ export class ChatComponent implements OnInit {
   chatIds = [];
   currentChat;
   currentUser;
+  newMessage = '';
   messages = [];
 
   constructor(private chatManager:ChatManagerService, private authService:AuthService) { }
@@ -39,12 +40,18 @@ export class ChatComponent implements OnInit {
       console.log(data);
     });
     this.chatManager.listen('chat:messages').subscribe((data) => {
+      let timeArray = [];
 
-      if(data[0].chat_id !== this.currentChat) {
-        for( let message of data) {
+      for( let message of data) {
+          message.timestamp = new Date(message.timestamp);
+          timeArray =  message.timestamp.toTimeString().split(' ')[0].split(':');
+          timeArray.pop();
+          message.time =timeArray.join(':')
+          +', '+message.timestamp.toLocaleDateString('en-GB');
           this.messages.push(message);
-        }
       }
+      this.messages.shift();
+      this.messages.shift();
       console.log(data);
     });
     this.chatManager.listen('chat:created').subscribe((data) => {
@@ -57,13 +64,25 @@ export class ChatComponent implements OnInit {
   }
 
   selectChat(chatId: number): void {
-    this.chatManager.selectChat(chatId);
-    this.currentChat = chatId;
-    console.log(chatId);
+    if(chatId !== this.currentChat) {
+      this.messages = [];
+      this.chatManager.selectChat(chatId);
+      this.currentChat = chatId;
+    }
   }
 
   isUser(senderId: number): boolean {
     return this.currentUser.idusuario == senderId;
+  }
+
+  sendMessage() {
+    if(!this.newMessage.replace(/\s/g, '').length) {
+      console.log('mensaje vacío');
+    }
+    else {
+      console.log(this.newMessage);
+      this.newMessage = '';
+    }
   }
 
 
