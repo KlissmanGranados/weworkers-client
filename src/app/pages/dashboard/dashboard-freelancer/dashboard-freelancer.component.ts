@@ -1,5 +1,5 @@
 import { HttpParams } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
 import { DataBase, ProyectoBase, Records } from 'src/app/core/models/proyect.model';
 import { AuthService } from 'src/app/core/services/auth.service';
@@ -11,7 +11,7 @@ import { PaginationService } from 'src/app/core/services/pagination.service';
   templateUrl: './dashboard-freelancer.component.html',
   styleUrls: ['./dashboard-freelancer.component.css']
 })
-export class DashboardFreelancerComponent implements OnInit {
+export class DashboardFreelancerComponent implements OnInit, OnDestroy {
   listadoProyecto: Records[];
   userRole: any;
   welcome = true;
@@ -91,6 +91,10 @@ export class DashboardFreelancerComponent implements OnInit {
 
     // this.getListado(this.paginationService.page, this.paginationService.perPage);
     this.paginationService.refreshListado = true;
+  }
+
+  ngOnDestroy() {
+    this.Filterservice.resetValues();
   }
 }
 

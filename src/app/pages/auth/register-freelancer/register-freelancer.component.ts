@@ -44,7 +44,7 @@ export class RegisterFreelancerComponent implements OnInit {
       }, error =>{
         console.log('error', error)
       }
-    )
+    );
   }
 
   showPassword(){
@@ -85,7 +85,8 @@ export class RegisterFreelancerComponent implements OnInit {
           text: `${response.message}`
         })
         if(response){
-          this.router.navigate(['/auth/login']);
+          // this.router.navigate(['/auth/login']);
+          this.router.navigate(['/auth/validate-registration']);
         }
       },error =>{
         console.log(error)

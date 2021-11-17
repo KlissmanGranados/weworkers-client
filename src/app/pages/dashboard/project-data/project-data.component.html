@@ -1,21 +1,68 @@
 <div class="page-wrapper">
-  <div  class="welcome-card">
-    <p-card header="titulo del proyecto" [style]="{'width': 'auto', 'margin': '2em 3rem', 'display': 'flex', 'height' : '25rem'}">
-      <h5>Descripción del proyecto</h5>
-      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur, corporis! Illo aut corporis nobis dolore consectetur non incidunt ea tempore molestias, ex neque ad provident ratione soluta sed, quibusdam fugit eius suscipit id reiciendis necessitatibus adipisci aliquid. Fuga earum reprehenderit soluta quaerat. Aliquam sit aspernatur, quibusdam dolorum esse vitae possimus ab totam, provident dignissimos quos commodi cupiditate voluptatum quod, animi nisi temporibus fugit magni. Enim possimus iste eveniet ipsa quasi. Eos aliquam ducimus reiciendis vero laboriosam vitae voluptatum corporis, minus ea maiores, qui maxime soluta delectus a dolor debitis sequi corrupti eligendi nemo ex unde. Doloribus incidunt saepe cumque harum?</p>
-      <h5>Detalles del proyecto</h5>
-      <ul>
-        <li>lorem</li>
-        <li>lorem</li>
-        <li>lorem</li>
-      </ul>
-    </p-card>
+  <div class="container mt-5 mb-5">
+    <div class="row g-2" *ngIf="detalleProyecto">
+        <div class="col-md-6">
+            <div class="card bg-white p-3 px-4 d-flex justify-content-center">
+              <span class="price">{{detalleProyecto.nombre}}</span><h5 class="mb-0">{{detalleProyecto.presupuesto}}{{detalleProyecto.monedaNombreCorto}}</h5>
+                <div class="mt-4">
+                    <div class="d-flex justify-content-between align-items-center"><span>{{detalleProyecto.descripcion}}</span> </div>
+                    <div class="d-flex justify-content-between align-items-center"> <span>Plataforma de pago</span> <span>{{detalleProyecto.tiposPagoNombre}}</span> </div>
+                    <div class="d-flex justify-content-between align-items-center"> <span>Modalidad</span> <span>{{detalleProyecto.modalidadNombre}}</span> </div>
+                    <!-- <div class="d-flex justify-content-between align-items-center"> <span>Tecnologias</span>
+                      <span *ngFor="let tags of detalleProyecto.tags">{{tags.nombre}}</span>
+                    </div> -->
+                </div>
+                <div class="mt-4" *ngIf="userRole.value"> <button class="btn" [style]="{'backgroundColor':'#825af5', 'border':'none', 'color':'#fff'}" routerLink="/dashboard/quiz-presentation">Responder Cuestionario</button> </div>
+                <div class="mt-4" *ngIf="!userRole.value && detalleProyecto.cuestionarioExiste"> <button class="btn" [style]="{'backgroundColor':'#825af5', 'border':'none', 'color':'#fff'}" routerLink="/dashboard/create-questionnaire/{{detalleProyecto.id}}/ver">Ver Cuestionario</button> </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="d-flex flex-column">
+                    <div class="pricing-1 d-flex justify-content-between details">
+                        <div> <span class="d-block">Numero de personas que se propusieron</span> <span class="font-weight-bold">{{detalleProyecto.propuestasCantidad}}</span> </div>
+                        <div class="circle"> <span></span> <span></span> <span></span> <span></span> </div>
+                    </div>
+                    <div class="pricing-1 d-flex justify-content-between details">
+                        <div> <span class="d-block">Numero de posibles contratarntes (buena puntuación en el cuestionario)</span> <span class="font-weight-bold">Numero</span> </div>
+                        <div class="circle"> <span></span> <span></span> <span></span> <span></span> </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
   </div>
-  <div class="container-lg">
-    <ul>
-      <li>
-        <p-card header="freelancer 1" [style]="{'width': 'auto', 'margin': '2em 3rem'}"></p-card>
-      </li>
-    </ul>
-  </div>
+  <section *ngIf="!userRole.value && listaFreelancer.length > 0">
+    <div class="container-lg">
+      <h5>Desarrolladores:</h5>
+      <div *ngFor="let listarFreelancer of listaFreelancer">
+        <p-card header="{{listarFreelancer.primerNombre}} {{listarFreelancer.primerApellido}}" [style]="{'margin':'1rem 0', 'box-shadow': '0 2px 2.5px -1px rgb(0 0 0 / 22%), 0 2px 2px 0 rgb(0 0 0 / 12%), 0 1px 3px 0 rgb(0 0 0 / 35%)'}">
+          <div class="row">
+            <div class="col-md-8">
+              <ul>
+                <li>Identificación: {{listarFreelancer.tipoIdentificacion}}-{{listarFreelancer.identificacion}}</li>
+                <li>Puntuación obtenida: </li>
+              </ul>
+            </div>
+            <div class="col-md-4">
+              <button pButton pRipple type="button" label="Contactar" routerLink="/dashboard/chat" [style]="{'backgroundColor':'var(--bluegray-600)', 'border': 'none', 'margin': '0.5rem'}"></button>
+              <button pButton pRipple type="button" label="Ver perfil" routerLink="/dashboard/preview-profile/{{listarFreelancer.id}}" [style]="{'backgroundColor':'var(--indigo-600)', 'border': 'none', 'margin': '0.5rem'}"></button>
+              <button pButton pRipple type="button" label="Contratar" (click)="contratar(listarFreelancer.id)" [style]="{'backgroundColor':'var(--indigo-300)', 'border': 'none', 'margin': '0.5rem'}"></button>
+            </div>
+          </div>
+        </p-card>
+      </div>
+      <div class="filter" *ngIf="!userRole.value">
+        <app-pagination
+          [rows]="paginationService.perPage"
+          [totalRecords]="paginationService.totalCount"
+          (paginatorChange)="onChangePagination($event)"
+        ></app-pagination>
+      </div>
+    </div>
+  </section>
+  <section class="text-center" *ngIf="listaFreelancer.length < 1">
+    <h5>No hay propuestas de desarrolladores.</h5>
+  </section>
 </div>
+<app-footer-general class="footer"></app-footer-general>

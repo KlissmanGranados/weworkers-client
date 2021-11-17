@@ -8,8 +8,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./right-sidebar.component.css']
 })
 export class RightSidebarComponent implements OnInit {
+  userId: number;
 
-  constructor(private authService: AuthService, private route: Router) { }
+  constructor(private authService: AuthService, private route: Router) {
+    this.userId = this.authService.getUserRole().rolesid;
+  }
 
   ngOnInit(): void {
   }
@@ -19,11 +22,11 @@ export class RightSidebarComponent implements OnInit {
     this.route.navigate(['/']);
   }
 
-  redirect(){
-    if(this.authService.getUserRole().rolesid === 1){
-      this.route.navigate(['/dashboard/dashboard-freelancer']);
-    }else{
-      this.route.navigate(['/dashboard/dashboard-collector']);
-    }
-  }
+  // redirect(){
+  //   if(this.authService.getUserRole().rolesid === 1){
+  //     this.route.navigate(['/dashboard/dashboard-freelancer']);
+  //   }else{
+  //     this.route.navigate(['/dashboard/dashboard-collector']);
+  //   }
+  // }
 }
