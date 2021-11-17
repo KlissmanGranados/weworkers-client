@@ -56,4 +56,8 @@ export class PaginationService {
   public onSelectedrefreshListado(): Observable<any> {
     return this._refreshListadoProyectos.asObservable();
   }
+
+  resetValues() {
+    this.paginationData = new PaginationData();
+  }
 }

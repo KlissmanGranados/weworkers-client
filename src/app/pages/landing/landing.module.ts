@@ -15,7 +15,13 @@ import { FuncionesComponent } from './Components/funciones/funciones.component';
 
 
 @NgModule({
-  declarations: [LandingComponent, NavbarComponent, FooterComponent, FreelancersComponent, TrabajaNosotrosComponent, FuncionesComponent],
+  declarations: [
+    LandingComponent,
+    NavbarComponent,
+    FooterComponent,
+    FreelancersComponent,
+    TrabajaNosotrosComponent,
+    FuncionesComponent],
   imports: [
     CommonModule,
     LandingRoutingModule,

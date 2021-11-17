@@ -1,33 +1,53 @@
-<div class="stepsdemo-content container">
+<div class="stepsdemo-content container" style="margin-bottom: 5rem;">
   <p-card class="card-form">
     <ng-template pTemplate="title">
-        Información Principal
+      Información Principal
     </ng-template>
     <ng-template pTemplate="subtitle">
-        Indica la Información principal de tu proyecto.
+      Indica la Información principal de tu proyecto.
     </ng-template>
     <ng-template pTemplate="content">
-        <div class="p-fluid">
-            <div class="p-field">
-              <span class="p-float-label">
-                  <input type="text" id="inputtext" pInputText>
-                  <label for="inputtext">Nombre del proyecto o empleo</label>
-              </span>
-                <!-- <small *ngIf="(nombre.invalid && submitted) || (nombre.dirty && firstname.invalid)" class="p-error">El nombre del proyecto es requerido.</small> -->
-            </div>
-            <div class="p-field mt-4">
-              <span class="p-float-label">
-                  <textarea inputId="textarea" rows="6" style="resize: none; width: 100%;border-color: #d4d4d8;" cols="30" pInputTextarea></textarea>
-                  <label for="textarea">Descripción</label>
-              </span>
-                <!-- <small class="p-error" *ngIf="(descripcion.invalid && submitted )|| (descripcion.dirty && descripcion.invalid)">la descripción es requerida.</small> -->
-            </div>
+      <div class="p-fluid">
+
+        <div class="p-field">
+          <span class="p-float-label">
+            <input
+              #nombre="ngModel"
+              id="nombre"
+              type="text"
+              required
+              pInputText
+              [(ngModel)]="proyecto.nombre"
+              [ngClass]="{'ng-dirty': (nombre.invalid && submitted) || (nombre.dirty && nombre.invalid)}">
+            <label for="nombre" >Nombre del proyecto o empleo</label>
+          </span>
+            <small *ngIf="(nombre.invalid && submitted) || (nombre.dirty && nombre.invalid)" class="p-error">El nombre del proyecto es requerido.</small>
         </div>
+
+        <div class="p-field mt-4">
+          <span class="p-float-label">
+            <textarea
+              #descripcion="ngModel"
+              id="descripcion"
+              [(ngModel)]="proyecto.descripcion"
+              required
+              pInputText
+              inputId="textarea"
+              rows="6"
+              cols="30"
+              style="resize: none; width: 100%;border-color: #d4d4d8;"
+              [ngClass]="{'ng-dirty': (descripcion.invalid && submitted) || (descripcion.dirty && descripcion.invalid)}"
+            ></textarea>
+            <label for="descripcion">Descripción</label>
+          </span>
+          <small class="p-error" *ngIf="(descripcion.invalid && submitted )|| (descripcion.dirty && descripcion.invalid)">la descripción es requerida.</small>
+        </div>
+      </div>
     </ng-template>
     <ng-template pTemplate="footer">
-        <div class="p-grid p-nogutter p-justify-end text-right">
-            <p-button label="Next" class="aling-style" (click)="navigateToPrev()" icon="pi pi-angle-right" iconPos="right" [style]="{'backgroundColor': 'var(--indigo-500)'}"></p-button>
-        </div>
+      <div class="p-grid p-nogutter p-justify-end">
+        <p-button label="Siguiente" class="aling-style" (click)="navigateToNext()" icon="pi pi-angle-right" iconPos="right" [style]="{'backgroundColor': 'var(--indigo-500)'}"></p-button>
+      </div>
     </ng-template>
   </p-card>
 </div>

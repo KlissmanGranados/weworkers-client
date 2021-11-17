@@ -29,3 +29,10 @@
   display: flex !important;
   /* justify-content: end; */
 }
+
+/* .la-validacion .p-fluid .p-chips > ul.ui-inputtext  {
+  background: red !important;
+} */
+::ng-deep .a-chips > .p-chips > .p-inputtext {
+  border: 1px solid #f62e2e !important;
+}

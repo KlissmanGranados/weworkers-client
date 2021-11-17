@@ -13,7 +13,7 @@
       <div class="p-col p-d-flex p-ai-center p-jc-center" *ngFor="let captados of listadoCaptados">
         <p-card [header]="captados.nombreCompleto" [style]="{'width': 'auto', 'margin': '2em 3rem', 'backgroundColor':'var(--bluegray-50)'}">
           <div class="row">
-            <div class="col-md-9">
+            <div class="col-md-10">
               <!-- <p>{{captados.descripcion}}</p> -->
               <br>
               <ul style="list-style: none; padding-left: 0;" *ngIf="captados.idiomas[0] !== null">
@@ -27,7 +27,7 @@
               </div>
             </div>
             <div class="col-md-2 button-aling">
-              <button pButton pRipple type="button" routerLink="/dashboard/project-data" label="Ver perfil" class="p-button-rounded" [style]="{'backgroundColor':'var(--indigo-600)','margin-bottom':'0.5rem'}"></button>
+              <button pButton pRipple type="button" routerLink="/dashboard/project-data" label="Ver perfil" routerLink="/dashboard/preview-profile/{{captados.id}}" class="p-button-rounded" [style]="{'backgroundColor':'var(--indigo-600)','margin-bottom':'0.5rem'}"></button>
               <!-- <ul class="payment-aling">
                 <li style="padding-right: 0.2rem; text-transform: capitalize;">{{proyecto.tiposPagoNombre}}</li>
                 <li>{{proyecto.presupuesto}} {{proyecto.monedaNombreCorto}}</li>

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
@@ -14,14 +14,12 @@ import {DividerModule} from 'primeng/divider';
 import {ButtonModule} from 'primeng/button';
 import {PaginatorModule} from 'primeng/paginator';
 
-
 import { DashboardComponent } from './dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms/';
 import { PoliticasComponent } from './politicas/politicas.component';
 import { ChatComponent } from './chat/chat.component';
 import { ProfileComponent } from './profile/profile.component';
-import { ProyectsComponent } from './proyects/proyects.component';
 import { ProfileService } from 'src/app/core/services/profile.service';
 import { ProjectDataComponent } from './project-data/project-data.component';
 import { UserFormComponent } from './profile/components/user-form/user-form.component';
@@ -37,10 +35,17 @@ import { AuthService } from 'src/app/core/services/auth.service';
     PoliticasComponent,
     ChatComponent,
     ProfileComponent,
-    ProyectsComponent,
     ProjectDataComponent,
     UserFormComponent,
-    ProfessionalFormComponent
+    ProfessionalFormComponent,
+    ProjectsComponent,
+    ModalComponent,
+    AnswerQuestionnaireComponent,
+    CreateQuestionnaireComponent,
+    ModalRedesComponent,
+    ModalTagsComponent,
+    QuizPresentationComponent,
+    PreviewProfileComponent
   ],
   imports: [
     CommonModule,
@@ -54,15 +59,23 @@ import { AuthService } from 'src/app/core/services/auth.service';
     BadgeModule,
     PaginatorModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DialogModule,
+    CheckboxModule,
+    ChipsModule,
   ],
   exports: [
     DashboardCollectorComponent
   ],
   providers:[
-    ProfileService,
     ChatManagerService,
-    AuthService
+    ProfileService,
+    AuthService,
+    ProjectListService,
+    QuestionnaireService,
+  ],
+  schemas:[
+    CUSTOM_ELEMENTS_SCHEMA
   ]
 })
 export class DashboardModule { }
