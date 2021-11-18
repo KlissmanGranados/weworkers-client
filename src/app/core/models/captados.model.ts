@@ -30,6 +30,7 @@ export interface Records{
   tags: tags;
   uri: string;
   usuario: string;
+  perfilProfesional?: any;
 }
 
 

@@ -25,12 +25,9 @@
                           </ul>
               </div>
           </div>
-          <div class="col-md-2">
-              <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Contratar" style="background-color: var(--cyan-700); color: #fff;"/>
-              <br>
-              <br>
+          <!-- <div class="col-md-2">
               <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Contactar" style="background-color: var(--indigo-600); color: #fff;"/>
-          </div>
+          </div> -->
       </div>
       <div class="row">
           <div class="col-md-4">
@@ -43,7 +40,7 @@
                 </div>
                 <div>
                   <p>Habilidades</p>
-                  <ul>
+                  <ul >
                     <li  *ngFor="let tag of userData.tags" style="margin-bottom: 0.3rem;">
                       <p-tag styleClass="p-mr-2" [value]="tag.nombre" icon="pi pi-star-o" [style]="{'backgroundColor': 'var(--indigo-300)', 'font-size': '0.95rem', 'margin-right': '0.7rem','border-radius':'1rem'}"></p-tag>
                     </li>

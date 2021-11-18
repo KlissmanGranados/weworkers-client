@@ -25,7 +25,7 @@
                   <td class="text-center" *ngIf="!userRole.value">{{listarProyecto?.presupuesto || ''}}</td>
                   <div *ngIf="!userRole.value">
                     <div *ngFor="let tags of listarProyecto.tags">
-                      <td class="text-center"><span class="btn btn-secondary yellow" *ngIf="tags.id !== null">{{tags.nombre}}</span> </td>
+                      <td class="text-center"><span class="btn btn-secondary yellow" *ngIf="tags !== null">{{tags.nombre}}</span> </td>
                     </div>
                   </div>
                   <td class="text-center" *ngIf="!userRole.value">

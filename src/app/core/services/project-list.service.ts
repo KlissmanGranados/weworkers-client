@@ -42,9 +42,9 @@ export class ProjectListService {
     return this.http.get<any>(`${this.urlApi}/comun/proyecto/${idProyecto}`);
   }
 
-  //captados
+  //por modificar
   listadoPropuestas(idProyecto: number, parametros: string): Observable<any>{
-    return this.http.get<any>(`${this.urlApi}/captador/listar-propuestas/?idProyecto=${idProyecto}&${parametros}`);
+    return this.http.get<any>(`${this.urlApi}/captador/evaluar-captados-propuestos/${idProyecto}/query?${parametros}`);
   }
 
   resetValues() {

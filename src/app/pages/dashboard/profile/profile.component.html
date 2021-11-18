@@ -270,14 +270,6 @@
             <p>{{collectorData.empresa.rif}}</p>
         </div>
     </div>
-    <div class="row">
-      <div class="col-md-6">
-          <label>Descripción profesional</label>
-      </div>
-      <div class="col-md-6">
-          <p>Web Developer and Designer</p>
-      </div>
-    </div>
   </div>
   <div *ngIf="editFormMode">
     <user-form [data]="{perfil: collectorData.perfil, type: 'collector'}" (saveChanges)="updateMode($event)"></user-form>

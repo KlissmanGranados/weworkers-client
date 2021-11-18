@@ -60,6 +60,8 @@ export class ProjectsComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.paginationService.resetValues();
     this.projectListService.resetValues();
+    this.supscriptionPagination.unsubscribe();
+    this.supscription.unsubscribe();
   }
 
   getListado(page: number, perPage: number){

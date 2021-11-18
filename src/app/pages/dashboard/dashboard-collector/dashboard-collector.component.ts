@@ -1,5 +1,6 @@
 import { HttpParams } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { CaptadosBase, DataBaseCaptados, Records } from 'src/app/core/models/captados.model';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { FiltersService } from 'src/app/core/services/filters.service';
@@ -11,16 +12,17 @@ import { ProfileService } from 'src/app/core/services/profile.service';
   templateUrl: './dashboard-collector.component.html',
   styleUrls: ['./dashboard-collector.component.css']
 })
-export class DashboardCollectorComponent implements OnInit {
+export class DashboardCollectorComponent implements OnInit, OnDestroy {
   listadoCaptados: Records[];
   userRole: any;
   welcome = true;
+  supscription: Subscription;
 
   constructor(
     private authService: AuthService,
     private Filterservice: FiltersService,
     public paginationService: PaginationService,
-    // private profileService: ProfileService
+    private profileService: ProfileService
   ) {
     this.userRole = this.authService.getUserRole();
   }
@@ -28,11 +30,12 @@ export class DashboardCollectorComponent implements OnInit {
   ngOnInit(): void {
     this.getListado(1, 10);
 
-    this.Filterservice.onSelectedlistadoFreelancer().subscribe(
+    this.supscription = this.Filterservice.onSelectedlistadoFreelancer().subscribe(
       (response: DataBaseCaptados) => {
         if(response !== null) {
           this.listadoCaptados = response.records;
           console.log('ngOnInit response.metadata',response);
+
 
           this.paginationService.change({
             page: response.metadata.page,
@@ -55,8 +58,11 @@ export class DashboardCollectorComponent implements OnInit {
 
       this.Filterservice.getListadoFreelancer(params.toString()).subscribe(
         (response: CaptadosBase) => {
+          for(let i of response.data.records) {
+            this.getdetailCaptado(i.id, i);
+          }
+          console.log('listadoCaptados',this.listadoCaptados);
           this.Filterservice.listadoFreelancer = response.data;
-          // this.getdetailCaptado(response.data.id);
         }, error => {
           console.log(error);
           // colocar el mensaje de error aqui
@@ -76,21 +82,24 @@ export class DashboardCollectorComponent implements OnInit {
     this.paginationService.refreshListado = true;
   }
 
-  // getdetailCaptado(id){
-  //   this.profileService.profile(id).subscribe(
-  //     response =>{
-  //       console.log(response)
-  //       console.log(id)
-  //       return true;
-  //     }, error =>{
-  //       console.log(error)
-  //       return false
-  //     }
-  //   );
-  // }
+  getdetailCaptado(id, obj) {
+    // let res;
+    this.profileService.profile(id).subscribe(
+      response =>{
+        obj.perfilProfesional = response.data.perfil;
+        // res = response;
+        // return res;
+      }, error =>{
+        console.log(error)
+        // res = null;
+      }
+    );
+    // console.log('res',res)
+  }
 
   ngOnDestroy() {
     this.Filterservice.resetValues();
+    this.supscription.unsubscribe();
   }
 
 }
