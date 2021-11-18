@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MultiDropdown, moneda, tiposPago, modalidades, idiomas } from 'src/app/core/models/filters.model';
 import { FiltersService } from 'src/app/core/services/filters.service';
@@ -8,13 +8,14 @@ import { ProyectoBase } from 'src/app/core/models/proyect.model';
 import { PaginationService } from 'src/app/core/services/pagination.service';
 import Swal from 'sweetalert2';
 import { CaptadosBase } from 'src/app/core/models/captados.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css']
 })
-export class SidebarComponent implements OnInit, OnChanges {
+export class SidebarComponent implements OnInit, OnChanges, OnDestroy {
   formControlFilter: FormGroup;
 
   items: MultiDropdown[] = [];
@@ -37,6 +38,9 @@ export class SidebarComponent implements OnInit, OnChanges {
   showAll = true;
   showStatus = true;
   userRole: any;
+
+  supscription: Subscription;
+  supscriptionPagination: Subscription;
 
   constructor(
     private filtersServices: FiltersService,
@@ -65,7 +69,7 @@ export class SidebarComponent implements OnInit, OnChanges {
     }
     // console.log('userRole',this.userRole);
 
-    this.paginationService.onSelectedrefreshListado().subscribe(
+    this.supscriptionPagination = this.paginationService.onSelectedrefreshListado().subscribe(
       response => {
         if(response) {
     //       //descomentar no borrar posible solucion
@@ -364,6 +368,11 @@ export class SidebarComponent implements OnInit, OnChanges {
     if(type === 'presupuesto') {
       this.formControlFilter.get('presupuestoFinal').enable();
     }
+  }
+
+  ngOnDestroy() {
+    this.supscriptionPagination.unsubscribe();
+    this.formControlFilter.reset();
   }
 }
 

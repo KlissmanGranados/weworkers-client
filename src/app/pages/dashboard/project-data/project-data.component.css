@@ -33,6 +33,10 @@
   font-weight: 600
 }
 
+ul{
+  list-style: none;
+}
+
 .pricing-1 {
   background-color: #6f5fe8;
   height: 145px;

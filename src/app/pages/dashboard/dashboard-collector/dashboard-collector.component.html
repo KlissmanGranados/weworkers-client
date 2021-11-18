@@ -6,7 +6,7 @@
         <img alt="Card" src="../../../../assets/landing/developer.gif">
       </ng-template>
     <i class="pi pi-times icon" (click)="welcome = !welcome" style="cursor: pointer;"></i>
-      <p>¿Listo para Trabajar?, Completa tu perfil presionando el icono que está en la barra de navegación para poder aplicar a un proyecto, recuerda leer nuestras políticas y términos de condición para cerciorarte de tener una buena experiencia utilizando We Workers ¡Mucho exitó compañero!</p>
+      <p>¿Listo para crear proyectos?, Ingresa a tu perfil presionando el icono que está en la barra de navegación y comienza a crear tus propuestas de empleo, recuerda leer nuestras políticas y términos de condición para cerciorarte de tener una buena experiencia utilizando We Workers ¡Mucho exitó compañero!</p>
     </p-card>
   </div>
   <div class="card">
@@ -14,10 +14,12 @@
         <p-card [header]="captados.nombreCompleto" [style]="{'width': 'auto', 'margin': '2em 3rem', 'backgroundColor':'var(--bluegray-50)'}">
           <div class="row">
             <div class="col-md-10">
-              <!-- <p>{{captados.descripcion}}</p> -->
+              <p>{{captados.perfilProfesional?.descripcion}}</p>
               <br>
               <ul style="list-style: none; padding-left: 0;" *ngIf="captados.idiomas[0] !== null">
                 <h5>Detalles</h5>
+                <li>Modalidad: {{captados.perfilProfesional?.modalidad}}</li>
+                <li>Desarrollador {{captados.perfilProfesional?.tipoDesarrollador}}</li>
                 <li>Idioma: <span *ngFor="let idioma of captados.idiomas; let i = index"><i *ngIf="i === 1">,</i> {{idioma.nombreLargo}} </span> </li>
               </ul>
               <div class="d-flex" *ngIf="captados.tags[0] !== null">
