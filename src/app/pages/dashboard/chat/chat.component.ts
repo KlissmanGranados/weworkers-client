@@ -43,7 +43,7 @@ export class ChatComponent implements OnInit {
         {
           mensaje:data.message,
           chat_id:data.chat_id,
-          usuarios_id:data.to,
+          usuarios_id:data.senderId,
           timestamp:currentTime,
           time:this.timeFormat(currentTime)
         }
@@ -94,14 +94,14 @@ export class ChatComponent implements OnInit {
     }
     else {
       this.chatManager
-      .sendMessage(this.currentReceived, this.currentChat, this.newMessage);
-      this.messages.push({
+      .sendMessage(this.currentReceived,this.currentUser.idusuario , this.currentChat, this.newMessage);
+      /*this.messages.push({
         mensaje:this.newMessage,
         chat_id:this.currentChat,
         usuarios_id:Number(this.currentUser.idusuario),
         timestamp:new Date(),
         time:this.timeFormat(new Date())
-      });
+      });*/
       this.newMessage = '';
     }
   }

@@ -33,8 +33,8 @@ export class ChatManagerService {
     });
   }
 
-  sendMessage(receivedId:number, chatId:number, message:string):void {
-    this.socket.emit('chat:send',{to:receivedId, message:message, chatId: chatId});
+  sendMessage(receivedId:number, senderId:number, chatId:number, message:string):void {
+    this.socket.emit('chat:send',{to:receivedId, message:message, chatId: chatId, senderId:senderId});
     console.log("mensaje enviado");
   }
 
