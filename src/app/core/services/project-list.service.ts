@@ -42,13 +42,25 @@ export class ProjectListService {
     return this.http.get<any>(`${this.urlApi}/comun/proyecto/${idProyecto}`);
   }
 
-  //captados
+  //por modificar
   listadoPropuestas(idProyecto: number, parametros: string): Observable<any>{
-    return this.http.get<any>(`${this.urlApi}/captador/listar-propuestas/?idProyecto=${idProyecto}&${parametros}`);
+    return this.http.get<any>(`${this.urlApi}/captador/evaluar-captados-propuestos/${idProyecto}/query?${parametros}`);
   }
 
   resetValues() {
     this.proyectList = null;
     this.freelanceList = null;
   }
+
+  agregarTrabajador(json): Observable<any>{
+    return this.http.post<any>(`${this.urlApi}/captador/agregar-trabajador`, json);
+  }
+
+  eliminarTrabajador(json): Observable<any>{
+    return this.http.request('delete',`${this.urlApi}/captador/eliminar-trabajador`,  {body: json});
+  }
+
+  // deleteUserLanguage(json): Observable<any>{
+  //   return this.http.request('delete', `${this.urlApi}/comun/idioma-eliminar`, {body: json});
+  // }
 }

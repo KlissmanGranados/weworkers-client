@@ -36,7 +36,7 @@
                     <li *ngIf="freelancerData.perfil.redes.length === 0">Agregue una red social</li>
                     <li *ngFor="let redes of freelancerData.perfil.redes" class="icons-pi redes">
                       <div>
-                        <strong>{{redes.nombre}} </strong>{{redes.direccion}}
+                        <strong>{{redes.nombre}} {{redes?.detalles?.honor}} </strong>{{redes.direccion}}
                       </div>
                       <div style="padding-right: 1px;">
                         <i class="pi pi-pencil" id="timesiconpencil" [style]="{'color':'#674EA7','cursor': 'pointer','margin': '0 11px'}" (click)="showDialogRedes();typeModalRedes='put';preloadRed=redes"></i>
@@ -269,14 +269,6 @@
         <div class="col-md-6">
             <p>{{collectorData.empresa.rif}}</p>
         </div>
-    </div>
-    <div class="row">
-      <div class="col-md-6">
-          <label>Descripción profesional</label>
-      </div>
-      <div class="col-md-6">
-          <p>Web Developer and Designer</p>
-      </div>
     </div>
   </div>
   <div *ngIf="editFormMode">

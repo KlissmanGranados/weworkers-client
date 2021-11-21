@@ -36,6 +36,16 @@ export class PreviewProfileComponent implements OnInit {
             text: `No hay data`
           })
         } else {
+          console.log('response',response);
+          if(Object.keys(response.data.perfil.tags).length === 0 && response.data.perfil.tags.constructor === Object) {
+            response.data.perfil.tags = [];
+          }
+          if(Object.keys(response.data.perfil.redes).length === 0 && response.data.perfil.redes.constructor === Object) {
+            response.data.perfil.redes = [];
+          }
+          if(Object.keys(response.data.perfil.idiomas).length === 0 && response.data.perfil.idiomas.constructor === Object) {
+            response.data.perfil.idiomas = [];
+          }
           this.userData = response.data.perfil;
         }
       }, error =>{

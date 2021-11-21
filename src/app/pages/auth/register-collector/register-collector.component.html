@@ -104,7 +104,7 @@
 
                     <div class="mb-4 ">
                       <div class="form-floating">
-                        <input class="form-control" placeholder="Leave a comment here" id="floatingTextarea" [type]="show_button ?  'text' : 'password'" formControlName="clave" maxlength="18" minlength="6">
+                        <input class="form-control" placeholder="Leave a comment here" id="floatingTextarea" [type]="show_button ?  'text' : 'password'" formControlName="clave">
                         <i [class]="show_eye ? 'pi pi-eye' : 'pi pi-eye-slash'" (click)="showPassword()" id="icon-eye" [style]="{'color':'#000'}"></i>
                         <label for="floatingTextarea" style="color: #000;">Clave</label>
                         <div class="message" *ngIf="registerCollectorForm.get('clave').touched && !registerCollectorForm.get('clave').valid">

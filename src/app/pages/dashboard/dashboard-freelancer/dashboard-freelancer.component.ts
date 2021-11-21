@@ -1,6 +1,7 @@
 import { HttpParams } from '@angular/common/http';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
+import { Subscription } from 'rxjs';
 import { DataBase, ProyectoBase, Records } from 'src/app/core/models/proyect.model';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { FiltersService } from 'src/app/core/services/filters.service';
@@ -16,6 +17,7 @@ export class DashboardFreelancerComponent implements OnInit, OnDestroy {
   userRole: any;
   welcome = true;
   message: string = '';
+  supscription: Subscription;
 
   constructor(
     private primengConfig: PrimeNGConfig,
@@ -30,12 +32,12 @@ export class DashboardFreelancerComponent implements OnInit, OnDestroy {
     this.getListado(1, 10);
     this.primengConfig.ripple = true;
 
-    this.Filterservice.onSelectedlistadoProyecto().subscribe(
+    this.supscription = this.Filterservice.onSelectedlistadoProyecto().subscribe(
       (response: DataBase) => {
         if(response !== undefined && response !== null) {
           this.message = '';
           this.listadoProyecto = response.records;
-          console.log('ngOnInit response.metadata',response.metadata);
+          console.log('ngOnInit response',response);
 
           this.paginationService.change({
             page: response.metadata.page,
@@ -95,6 +97,7 @@ export class DashboardFreelancerComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.Filterservice.resetValues();
+    this.supscription.unsubscribe();
   }
 }
 

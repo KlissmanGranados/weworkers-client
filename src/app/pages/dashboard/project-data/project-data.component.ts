@@ -1,18 +1,19 @@
 import { HttpParams } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { PaginationService } from 'src/app/core/services/pagination.service';
 import { ProjectListService } from 'src/app/core/services/project-list.service';
 import { QuestionnaireService } from 'src/app/core/services/questionnaire.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-project-data',
   templateUrl: './project-data.component.html',
   styleUrls: ['./project-data.component.css']
 })
-export class ProjectDataComponent implements OnInit {
+export class ProjectDataComponent implements OnInit, OnDestroy {
   userRole: any;
   detalleProyecto: any;
   listaFreelancer: any;
@@ -32,7 +33,7 @@ export class ProjectDataComponent implements OnInit {
       (response: any) => {
         if(response !== null) {
           this.listaFreelancer = response.records;
-          // console.log('ngOnInit response.metadata',response);
+          console.log('response',response);
 
           this.paginationService.change({
             page: response.metadata.page,
@@ -49,7 +50,7 @@ export class ProjectDataComponent implements OnInit {
     this.supscriptionPagination = this.paginationService.onSelectedrefreshListado().subscribe(
       response => {
         if(response) {
-          this.getListado(this.paginationService.page, this.paginationService.perPage, this.idProyecto);
+            this.getListado(this.paginationService.page, this.paginationService.perPage, this.idProyecto);
         }
       }
     );
@@ -84,18 +85,47 @@ export class ProjectDataComponent implements OnInit {
 
       this.projectListService.listadoPropuestas(idProyecto, params.toString()).subscribe(
         response =>{
-          console.log('freelancer data', response.data)
-          if(response.data.records.length > 0) {
-            this.projectListService.freelanceList = response.data;
+          console.log('freelancer data', response)
+          if(response.data.records instanceof Array) {
+            if(response.data.records.length > 0) {
+              this.projectListService.freelanceList = response.data;
+            } else {
+              this.projectListService.freelanceList = null;
+              Swal.fire({
+                icon: 'warning',
+                title: `No hay propuestas de desarrolladores`
+              });
+            }
+          } else if(response.data.records instanceof Object) {
+            this.projectListService.freelanceList = null;
+            Swal.fire({
+              icon: 'warning',
+              title: `No hay propuestas de desarrolladores`
+            });
           } else {
-            this.listaFreelancer;
-            // Mensaje de no posee propyectos o propuestas
+            this.projectListService.freelanceList = null;
+
+            Swal.fire({
+              icon: 'warning',
+              title: `No hay propuestas de desarrolladores`
+            });
           }
         }, error =>{
-          console.log(error)
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: `${error.error.message}`
+          });
         }
       );
     }
+  }
+
+  ngOnDestroy(): void {
+    this.paginationService.resetValues();
+    this.projectListService.resetValues();
+    this.supscriptionPagination.unsubscribe();
+    this.supscription.unsubscribe();
   }
 
   onChangePagination(evt) {
@@ -109,7 +139,51 @@ export class ProjectDataComponent implements OnInit {
     this.paginationService.refreshListado = true;
   }
 
-  contratar(freelanceId: number) {
+  contratar(freelance: any) {
+    this.projectListService.agregarTrabajador({
+      idProyecto: this.idProyecto,
+      idUsuario: freelance.usuarioId
+    }).subscribe(
+      response => {
+        freelance.usuarioParticipando = true;
+        Swal.fire({
+          icon: 'success',
+          title: `${response.message}`
+        });
+      }, error => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: `${error.error.message}`
+        });
+      }
+    );
+    // freelance.usuarioId
+    //this.idProyecto
+
+  }
+
+  Borrarcontratar(freelance: any) {
+    this.projectListService.eliminarTrabajador({
+      idProyecto: this.idProyecto,
+      idUsuario: freelance.usuarioId
+    }).subscribe(
+      response => {
+        freelance.usuarioParticipando = false;
+        Swal.fire({
+          icon: 'success',
+          title: `${response.message}`
+        });
+      }, error => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: `${error.error.message}`
+        });
+      }
+    );
+    // freelance.usuarioId
+    //this.idProyecto
 
   }
 }

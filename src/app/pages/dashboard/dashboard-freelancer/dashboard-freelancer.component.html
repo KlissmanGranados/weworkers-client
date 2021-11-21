@@ -28,7 +28,7 @@
               </ul>
             </div>
             <div class="col-md-6 button-aling">
-              <button pButton pRipple type="button" routerLink="/dashboard/project-data/{{proyecto.id}}" label="Aplicar al proyeto" class="p-button-rounded" [style]="{'backgroundColor':'var(--indigo-600)','margin-bottom':'0.5rem','margin-right': '1em'}"></button>
+              <button pButton pRipple type="button" routerLink="/dashboard/project-data/{{proyecto.id}}" label="Ver detalle del proyecto" class="p-button-rounded" [style]="{'backgroundColor':'var(--indigo-600)','margin-bottom':'0.5rem','margin-right': '1em'}"></button>
               <!-- <ul class="payment-aling">
                 <li style="padding-right: 0.2rem; text-transform: capitalize;">{{proyecto.tiposPagoNombre}}</li>
                 <li>{{proyecto.presupuesto}} {{proyecto.monedaNombreCorto}}</li>
@@ -36,7 +36,7 @@
             </div>
             <div class="row">
               <div *ngFor="let tag of proyecto.tags" style="width: auto; margin: 0.3em 0;">
-                <p-tag styleClass="p-mr-2" [value]="tag.nombre" icon="pi pi-star-o" [style]="{'backgroundColor': 'var(--indigo-300)', 'font-size': '0.95rem', 'margin-right': '0.7rem','border-radius':'1rem'}"></p-tag>
+                <p-tag *ngIf="tag !== null" styleClass="p-mr-2" [value]="tag.nombre" icon="pi pi-star-o" [style]="{'backgroundColor': 'var(--indigo-300)', 'font-size': '0.95rem', 'margin-right': '0.7rem','border-radius':'1rem'}"></p-tag>
               </div>
             </div>
           </div>
