@@ -9,7 +9,6 @@ import { RegisterFreelancerComponent } from './register-freelancer/register-free
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { RouterModule } from '@angular/router';
-import { ValidateRegistrationComponent } from './validate-registration/validate-registration.component';
 
 
 @NgModule({
@@ -17,8 +16,7 @@ import { ValidateRegistrationComponent } from './validate-registration/validate-
     LoginComponent,
     RecordTypeComponent,
     RegisterCollectorComponent,
-    RegisterFreelancerComponent,
-    ValidateRegistrationComponent
+    RegisterFreelancerComponent
   ],
   imports: [
     CommonModule,

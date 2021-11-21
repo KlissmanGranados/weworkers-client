@@ -38,13 +38,13 @@
       <div *ngFor="let listarFreelancer of listaFreelancer">
         <p-card header="{{listarFreelancer.primerNombre}} {{listarFreelancer.primerApellido}}" [style]="{'margin':'1rem 0', 'box-shadow': '0 2px 2.5px -1px rgb(0 0 0 / 22%), 0 2px 2px 0 rgb(0 0 0 / 12%), 0 1px 3px 0 rgb(0 0 0 / 35%)'}">
           <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-7">
               <ul>
                 <li>Identificación: {{listarFreelancer.tipoIdentificacion}}-{{listarFreelancer.identificacion}}</li>
                 <li>Puntuación obtenida: {{listarFreelancer.score}} </li>
               </ul>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-5">
               <!--Botón contactar-->
               <button pButton pRipple type="button" label="Contactar" routerLink="/dashboard/chat" [style]="{'backgroundColor':'var(--bluegray-600)', 'border': 'none', 'margin': '0.5rem'}"
               (click)="contactar(listarFreelancer.usuarioId)"
