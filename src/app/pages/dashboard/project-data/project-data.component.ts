@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { PaginationService } from 'src/app/core/services/pagination.service';
 import { ProjectListService } from 'src/app/core/services/project-list.service';
 import { QuestionnaireService } from 'src/app/core/services/questionnaire.service';
+import { ChatManagerService } from 'src/app/core/services/chat-manager.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -27,6 +28,7 @@ export class ProjectDataComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private projectListService: ProjectListService,
     public paginationService: PaginationService,
+    private chatManagerService: ChatManagerService
   ) {
     this.userRole = this.authService.getUserRole();
     this.supscription = this.projectListService.onSelectedfreelanceList().subscribe(
@@ -64,6 +66,8 @@ export class ProjectDataComponent implements OnInit, OnDestroy {
       this.getDetalleProyecto(id);
       this.getListado(1, 10, id);
     });
+
+    this.chatManagerService.connect(this.authService.gettoken());
   }
 
   getDetalleProyecto(idProyecto){
@@ -185,5 +189,10 @@ export class ProjectDataComponent implements OnInit, OnDestroy {
     // freelance.usuarioId
     //this.idProyecto
 
+  }
+
+  contactar(receivedId:number):void {
+    const token = this.authService.profile();
+    this.chatManagerService.createChat(this.detalleProyecto.id ,token.idusuario, receivedId);
   }
 }
