@@ -19,6 +19,7 @@ export class ChatComponent implements OnInit {
   chatIds = [];
   currentChat;
   currentUser;
+  currentToken;
   currentReceived;
   newMessage = '';
   messages = [];
@@ -26,16 +27,16 @@ export class ChatComponent implements OnInit {
   constructor(private chatManager:ChatManagerService, private authService:AuthService) { }
 
    ngOnInit(): void {
-    this.chatManager.connect();
+    this.currentUser = this.authService.profile();
+    this.currentToken = this.authService.gettoken();
+    this.chatManager.connect(this.currentToken);
     this.chatManager.listen('chat:init').subscribe((data) => {
-      this.currentUser = this.authService.profile();
       for (let row of data) {
         if(!this.chatIds.includes(row.chat_id)) {
           this.contactList.push(row);
           this.chatIds.push(row);
         }
       }
-      console.log(data);
     });
     this.chatManager.listen('chat:answer').subscribe((data) => {
       const currentTime = new Date();
@@ -48,7 +49,6 @@ export class ChatComponent implements OnInit {
           time:this.timeFormat(currentTime)
         }
       )
-      console.log(data);
     });
     this.chatManager.listen('chat:messages').subscribe((data) => {
 
@@ -58,7 +58,6 @@ export class ChatComponent implements OnInit {
       }
       this.messages.shift();
       this.messages.shift();
-      console.log(data);
     });
     this.chatManager.listen('chat:created').subscribe((data) => {
       console.log(data);

@@ -10,12 +10,10 @@ export class ChatManagerService {
 
   urlApi = "https://weworkers-server.herokuapp.com/";
   socket;
-  token = this.authService.gettoken();
 
   constructor(private authService: AuthService) {}
 
-  connect(): void {
-    const token = this.token;
+  connect(token:string): void {
     this.socket = io(this.urlApi, {query:{token}});
   }
 
@@ -30,6 +28,14 @@ export class ChatManagerService {
       this.socket.on(eventName, (data) => {
         subscriber.next(data);
       });
+    });
+  }
+
+  createChat(proyectoId:number, loggedUser:number, receivedUser:number):void {
+    this.socket.emit('chat:create', {
+      proyectoId:proyectoId,
+      loggedUser:loggedUser,
+      receivedUser:receivedUser
     });
   }
 
