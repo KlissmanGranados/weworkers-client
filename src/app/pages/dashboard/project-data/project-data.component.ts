@@ -139,7 +139,51 @@ export class ProjectDataComponent implements OnInit, OnDestroy {
     this.paginationService.refreshListado = true;
   }
 
-  contratar(freelanceId: number) {
+  contratar(freelance: any) {
+    this.projectListService.agregarTrabajador({
+      idProyecto: this.idProyecto,
+      idUsuario: freelance.usuarioId
+    }).subscribe(
+      response => {
+        freelance.usuarioParticipando = true;
+        Swal.fire({
+          icon: 'success',
+          title: `${response.message}`
+        });
+      }, error => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: `${error.error.message}`
+        });
+      }
+    );
+    // freelance.usuarioId
+    //this.idProyecto
+
+  }
+
+  Borrarcontratar(freelance: any) {
+    this.projectListService.eliminarTrabajador({
+      idProyecto: this.idProyecto,
+      idUsuario: freelance.usuarioId
+    }).subscribe(
+      response => {
+        freelance.usuarioParticipando = false;
+        Swal.fire({
+          icon: 'success',
+          title: `${response.message}`
+        });
+      }, error => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: `${error.error.message}`
+        });
+      }
+    );
+    // freelance.usuarioId
+    //this.idProyecto
 
   }
 }

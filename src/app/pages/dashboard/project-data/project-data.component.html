@@ -47,7 +47,8 @@
             <div class="col-md-4">
               <button pButton pRipple type="button" label="Contactar" routerLink="/dashboard/chat" [style]="{'backgroundColor':'var(--bluegray-600)', 'border': 'none', 'margin': '0.5rem'}"></button>
               <button pButton pRipple type="button" label="Ver perfil" routerLink="/dashboard/preview-profile/{{listarFreelancer.usuarioId}}" [style]="{'backgroundColor':'var(--indigo-600)', 'border': 'none', 'margin': '0.5rem'}"></button>
-              <button pButton pRipple type="button" label="Contratar" (click)="contratar(listarFreelancer.usuarioId)" [style]="{'backgroundColor':'var(--indigo-300)', 'border': 'none', 'margin': '0.5rem'}"></button>
+              <button pButton pRipple type="button" label="Emplear" *ngIf="!listarFreelancer.usuarioParticipando" (click)="contratar(listarFreelancer)" [style]="{'backgroundColor':'var(--indigo-300)', 'border': 'none', 'margin': '0.5rem'}"></button>
+              <button pButton pRipple type="button" label="Desemplear" *ngIf="listarFreelancer.usuarioParticipando" (click)="Borrarcontratar(listarFreelancer)" [style]="{'backgroundColor':'#dc3545', 'border': 'none', 'margin': '0.5rem'}"></button>
             </div>
           </div>
         </p-card>
