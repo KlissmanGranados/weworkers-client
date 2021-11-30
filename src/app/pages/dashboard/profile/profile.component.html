@@ -62,7 +62,7 @@
                 <button class="btn btn-default openBtn" type="button" pButton label="Agregar idioma" [disabled]="jobClosed" style="background-color: var(--indigo-600); color: #fff; border-radius: 2rem;" (click)="showDialog()"></button>
                 <app-modal [display]="display" (displayChange)="onDialogClose($event)"></app-modal>
               </div>
-              <div *ngIf="userRole">
+              <div *ngIf="userRole" class="mb-4">
                 <p>Habilidades y tecnologías
                   <span style="padding-left: 1em;">
                     <i

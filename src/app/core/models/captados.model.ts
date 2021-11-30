@@ -8,6 +8,7 @@ export interface CaptadosBase{
 export interface DataBaseCaptados{
   metadata: Metadata;
   records: Records[];
+  params?: string;
 }
 
 export interface Metadata{

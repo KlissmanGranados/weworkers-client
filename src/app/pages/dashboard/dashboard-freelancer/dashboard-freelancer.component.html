@@ -4,11 +4,19 @@
   <div class="welcome-card" *ngIf="welcome">
     <p-card header="¡Hola, Bienvenido a We Workers!" [style]="{'width': 'auto', 'margin': '2em 3rem', 'display': 'flex'}">
       <ng-template pTemplate="header">
-          <img alt="Card" src="../../../../assets/landing/cards/card-3.gif">
+          <img alt="Card" class="card-img" src="../../../../assets/landing/cards/card-3.gif">
       </ng-template>
     <i class="pi pi-times icon" (click)="welcome = !welcome" style="cursor: pointer;"></i>
       <p>¿Listo para Trabajar?, Completa tu perfil presionando el icono que está en la barra de navegación para poder aplicar a un proyecto, recuerda leer nuestras políticas y términos de condición para cerciorarte de tener una buena experiencia utilizando We Workers ¡Mucho exitó compañero!</p>
     </p-card>
+  </div>
+  <div class="conatiner-lg" *ngIf="this.message === ''">
+    <h5 class="mt-4" style="margin-left: 3rem;">Total de resultados obtenidos: <span style="color: #36459a;">{{paginationService.totalCount}}</span></h5>
+    <div *ngIf="params !== null">
+    <h5 class="mt-2" style="margin-left: 3rem;">Búsqueda realizada:
+          <span style="color: #36459a;" *ngFor="let params of params"><p-tag [style]="{'backgroundColor': '#5c72eb'}"  *ngIf="params.key !== 'page' && params.key !== 'perPage'" styleClass="p-mr-2 ml-5" value="{{params.value}}" [rounded]="true"></p-tag></span>
+    </h5>
+    </div>
   </div>
   <div class="card">
       <div class="p-col p-d-flex p-ai-center p-jc-center" *ngFor="let proyecto of listadoProyecto">
@@ -58,6 +66,7 @@
   ></app-pagination>
   </div>
 </div>
+<app-load [load]="loading"></app-load>
 <app-footer-general class="footer"></app-footer-general>
 
 

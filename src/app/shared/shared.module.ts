@@ -65,7 +65,8 @@ import { LoadComponent } from './load/load.component';
     SidebarComponent,
     RightSidebarComponent,
     MultiDropdownComponent,
-    PaginationComponent
+    PaginationComponent,
+    LoadComponent
   ],
   providers: [
     FiltersService,

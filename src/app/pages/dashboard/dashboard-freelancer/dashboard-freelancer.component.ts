@@ -17,7 +17,9 @@ export class DashboardFreelancerComponent implements OnInit, OnDestroy {
   userRole: any;
   welcome = true;
   message: string = '';
+  params: any = null;
   supscription: Subscription;
+  loading: boolean = false;
 
   constructor(
     private primengConfig: PrimeNGConfig,
@@ -29,6 +31,7 @@ export class DashboardFreelancerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.loading = true;
     this.getListado(1, 10);
     this.primengConfig.ripple = true;
 
@@ -37,7 +40,18 @@ export class DashboardFreelancerComponent implements OnInit, OnDestroy {
         if(response !== undefined && response !== null) {
           this.message = '';
           this.listadoProyecto = response.records;
-          console.log('ngOnInit response',response);
+          this.loading = false;
+          console.log('ngOnInit response *',response);
+          this.params = response?.params || null;
+
+          if(this.params !== null) {
+            this.params = this.params.split('&');
+            this.params = this.params.map((item, index, arr) => {
+              let i = item.split('=');
+              return { key: i[0], value: i[1] };
+            });
+            console.log('params', this.params);
+          }
 
           this.paginationService.change({
             page: response.metadata.page,
@@ -47,6 +61,7 @@ export class DashboardFreelancerComponent implements OnInit, OnDestroy {
           });
         } else if(response === undefined) {
           this.listadoProyecto = [];
+          this.params = null;
           this.message = 'No se encontraron resultados para tu busqueda';
           this.paginationService.change({
             page: 0,
@@ -90,7 +105,7 @@ export class DashboardFreelancerComponent implements OnInit, OnDestroy {
     });
     console.log('****cambio de pagina****');
     console.log('data',this.paginationService.paginationInfo);
-
+    this.loading = true;
     // this.getListado(this.paginationService.page, this.paginationService.perPage);
     this.paginationService.refreshListado = true;
   }
