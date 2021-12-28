@@ -22,25 +22,28 @@ module.exports = __webpack_require__(/*! /home/runner/work/WeWorkers/WeWorkers/s
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthService", function() { return AuthService; });
-/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/environments/environment */ "AytR");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "qCKp");
-/* harmony import */ var jwt_decode__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! jwt-decode */ "EjJx");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "fXoL");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ "tk/3");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common/http */ "tk/3");
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/environments/environment */ "AytR");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "qCKp");
+/* harmony import */ var jwt_decode__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! jwt-decode */ "EjJx");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ "fXoL");
+
 
 
 
 
 
 class AuthService {
-    constructor(http) {
+    constructor(http, httpBackend) {
         this.http = http;
-        this.urlApi = src_environments_environment__WEBPACK_IMPORTED_MODULE_0__["environment"].apiBase;
+        this.httpBackend = httpBackend;
+        this.urlApi = src_environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].apiBase;
         this.tokenKey = 'tk';
-        this.loggedIn = new rxjs__WEBPACK_IMPORTED_MODULE_1__["BehaviorSubject"](false); //inicializacion
+        this.loggedIn = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"](false); //inicializacion
     }
     register(json) {
-        return this.http.post(`${this.urlApi}/auth/registrar/`, json);
+        const newHttpClient = new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"](this.httpBackend);
+        return newHttpClient.post(`${this.urlApi}/auth/registrar/`, json);
     }
     login(json) {
         return this.http.post(`${this.urlApi}/auth/login`, json);
@@ -75,7 +78,7 @@ class AuthService {
     }
     profile() {
         if (this.gettoken()) {
-            const tokenDecode = Object(jwt_decode__WEBPACK_IMPORTED_MODULE_2__["default"])(this.gettoken());
+            const tokenDecode = Object(jwt_decode__WEBPACK_IMPORTED_MODULE_3__["default"])(this.gettoken());
             return tokenDecode;
         }
         else {
@@ -83,7 +86,7 @@ class AuthService {
         }
     }
     getUserRole() {
-        const role = Object(jwt_decode__WEBPACK_IMPORTED_MODULE_2__["default"])(this.gettoken());
+        const role = Object(jwt_decode__WEBPACK_IMPORTED_MODULE_3__["default"])(this.gettoken());
         //1 - freelancer
         //2 - collector captador
         // console.log(role.rolesid);
@@ -96,8 +99,8 @@ class AuthService {
         }
     }
 }
-AuthService.ɵfac = function AuthService_Factory(t) { return new (t || AuthService)(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClient"])); };
-AuthService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineInjectable"]({ token: AuthService, factory: AuthService.ɵfac, providedIn: 'root' });
+AuthService.ɵfac = function AuthService_Factory(t) { return new (t || AuthService)(_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"]), _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpBackend"])); };
+AuthService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdefineInjectable"]({ token: AuthService, factory: AuthService.ɵfac, providedIn: 'root' });
 
 
 /***/ }),
@@ -127,6 +130,51 @@ const environment = {
  * on performance if an error is thrown.
  */
 // import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+
+
+/***/ }),
+
+/***/ "MGpm":
+/*!*****************************************************!*\
+  !*** ./src/app/core/guards/authentication.guard.ts ***!
+  \*****************************************************/
+/*! exports provided: AuthenticationGuard */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthenticationGuard", function() { return AuthenticationGuard; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "tyNb");
+/* harmony import */ var _services_auth_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/auth.service */ "7dP1");
+
+
+
+class AuthenticationGuard {
+    constructor(router, authService) {
+        this.router = router;
+        this.authService = authService;
+    }
+    canActivate(route, state) {
+        const token = this.authService.profile();
+        if (token === undefined) {
+            return true;
+        }
+        else {
+            let navegacion;
+            if (token.rolesid === 1) {
+                navegacion = '/dashboard/dashboard-freelancer';
+            }
+            else {
+                navegacion = '/dashboard/dashboard-collector';
+            }
+            this.router.navigate([navegacion]);
+            return false;
+        }
+    }
+}
+AuthenticationGuard.ɵfac = function AuthenticationGuard_Factory(t) { return new (t || AuthenticationGuard)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_services_auth_service__WEBPACK_IMPORTED_MODULE_2__["AuthService"])); };
+AuthenticationGuard.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: AuthenticationGuard, factory: AuthenticationGuard.ɵfac, providedIn: 'root' });
 
 
 /***/ }),
@@ -261,22 +309,24 @@ function CompareValidator(controlNameToCompare) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppRoutingModule", function() { return AppRoutingModule; });
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/router */ "tyNb");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _core_guards_authentication_guard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./core/guards/authentication.guard */ "MGpm");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "fXoL");
+
 
 
 
 const routes = [
     { path: "", redirectTo: 'landing', pathMatch: 'full' },
-    { path: "landing", loadChildren: () => __webpack_require__.e(/*! import() | pages-landing-landing-module */ "pages-landing-landing-module").then(__webpack_require__.bind(null, /*! ./pages/landing/landing.module */ "CXjK")).then(m => m.LandingModule) },
-    { path: "auth", loadChildren: () => Promise.all(/*! import() | pages-auth-auth-module */[__webpack_require__.e("default~pages-auth-auth-module~pages-dashboard-dashboard-module"), __webpack_require__.e("pages-auth-auth-module")]).then(__webpack_require__.bind(null, /*! ./pages/auth/auth.module */ "lBUW")).then(m => m.AuthModule) },
+    { path: "landing", loadChildren: () => __webpack_require__.e(/*! import() | pages-landing-landing-module */ "pages-landing-landing-module").then(__webpack_require__.bind(null, /*! ./pages/landing/landing.module */ "CXjK")).then(m => m.LandingModule), canActivate: [_core_guards_authentication_guard__WEBPACK_IMPORTED_MODULE_1__["AuthenticationGuard"]] },
+    { path: "auth", loadChildren: () => Promise.all(/*! import() | pages-auth-auth-module */[__webpack_require__.e("default~pages-auth-auth-module~pages-dashboard-dashboard-module"), __webpack_require__.e("pages-auth-auth-module")]).then(__webpack_require__.bind(null, /*! ./pages/auth/auth.module */ "lBUW")).then(m => m.AuthModule), canActivate: [_core_guards_authentication_guard__WEBPACK_IMPORTED_MODULE_1__["AuthenticationGuard"]] },
     { path: "dashboard", loadChildren: () => Promise.all(/*! import() | pages-dashboard-dashboard-module */[__webpack_require__.e("default~pages-auth-auth-module~pages-dashboard-dashboard-module"), __webpack_require__.e("pages-dashboard-dashboard-module")]).then(__webpack_require__.bind(null, /*! ./pages/dashboard/dashboard.module */ "/2RN")).then(m => m.DashboardModule) },
 ];
 class AppRoutingModule {
 }
 AppRoutingModule.ɵfac = function AppRoutingModule_Factory(t) { return new (t || AppRoutingModule)(); };
-AppRoutingModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineNgModule"]({ type: AppRoutingModule });
-AppRoutingModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjector"]({ imports: [[_angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"].forRoot(routes)], _angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"]] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵsetNgModuleScope"](AppRoutingModule, { imports: [_angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"]], exports: [_angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"]] }); })();
+AppRoutingModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineNgModule"]({ type: AppRoutingModule });
+AppRoutingModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineInjector"]({ imports: [[_angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"].forRoot(routes)], _angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"]] });
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵsetNgModuleScope"](AppRoutingModule, { imports: [_angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"]], exports: [_angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"]] }); })();
 
 
 /***/ }),
