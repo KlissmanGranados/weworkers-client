@@ -36,7 +36,7 @@
                     <li *ngIf="freelancerData.perfil.redes.length === 0">Agregue una red social</li>
                     <li *ngFor="let redes of freelancerData.perfil.redes" class="icons-pi redes">
                       <div>
-                        <strong>{{redes.nombre}} </strong>{{redes.direccion}}
+                        <strong>{{redes.nombre}} {{redes?.detalles?.honor}} </strong>{{redes.direccion}}
                       </div>
                       <div style="padding-right: 1px;">
                         <i class="pi pi-pencil" id="timesiconpencil" [style]="{'color':'#674EA7','cursor': 'pointer','margin': '0 11px'}" (click)="showDialogRedes();typeModalRedes='put';preloadRed=redes"></i>
@@ -62,7 +62,7 @@
                 <button class="btn btn-default openBtn" type="button" pButton label="Agregar idioma" [disabled]="jobClosed" style="background-color: var(--indigo-600); color: #fff; border-radius: 2rem;" (click)="showDialog()"></button>
                 <app-modal [display]="display" (displayChange)="onDialogClose($event)"></app-modal>
               </div>
-              <div *ngIf="userRole">
+              <div *ngIf="userRole" class="mb-4">
                 <p>Habilidades y tecnologías
                   <span style="padding-left: 1em;">
                     <i

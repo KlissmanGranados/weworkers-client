@@ -156,6 +156,7 @@ export class SidebarComponent implements OnInit, OnChanges, OnDestroy {
 
       this.filtersServices.getListadoProyectos(params.toString()).subscribe(
         (response: ProyectoBase) => {
+          console.log(response);
           if (Object.keys(response.data.records).length === 0) {
             this.filtersServices.listadoProyecto = undefined;
             Swal.fire({
@@ -164,6 +165,7 @@ export class SidebarComponent implements OnInit, OnChanges, OnDestroy {
               text: `No existen propuestas con ese parametro de búsqueda`
             })
           } else {
+            response.data.params = params.toString();
             this.filtersServices.listadoProyecto = response.data;
           }
         }, error => {
@@ -203,13 +205,14 @@ export class SidebarComponent implements OnInit, OnChanges, OnDestroy {
       this.filtersServices.getListadoFreelancer(params.toString()).subscribe(
         (response: CaptadosBase) => {
           if (Object.keys(response.data.records).length === 0) {
-            this.filtersServices.listadoFreelancer = null;
+            this.filtersServices.listadoFreelancer = undefined;
             Swal.fire({
               icon: 'error',
               title: 'Oops...',
               text: `No existen propuestas con ese parametro de búsqueda`
             })
           } else {
+            response.data.params = params.toString();
             this.filtersServices.listadoFreelancer = response.data;
           }
         }, error => {

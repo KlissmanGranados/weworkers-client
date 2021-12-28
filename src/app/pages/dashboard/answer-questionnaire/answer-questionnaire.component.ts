@@ -25,7 +25,7 @@ export class AnswerQuestionnaireComponent implements OnInit {
       response => {
         if(response !== null) {
           console.log('id por subscribe',response);
-          this.getQuiz(response);
+          this.getQuiz(response.id);
         } else {
           this.router.navigate(['/dashboard/dashboard-freelancer']);
         }

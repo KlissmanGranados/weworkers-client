@@ -17,6 +17,9 @@ export class DashboardCollectorComponent implements OnInit, OnDestroy {
   userRole: any;
   welcome = true;
   supscription: Subscription;
+  params: any = null;
+  message: string = '';
+  loading: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -28,14 +31,30 @@ export class DashboardCollectorComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.loading = true;
     this.getListado(1, 10);
 
     this.supscription = this.Filterservice.onSelectedlistadoFreelancer().subscribe(
       (response: DataBaseCaptados) => {
-        if(response !== null) {
+        if(response !== undefined && response !== null) {
+          this.message = '';
+          for(let i of response.records) {
+            this.getdetailCaptado(i.id, i);
+          }
           this.listadoCaptados = response.records;
+          this.loading = false;
           console.log('ngOnInit response.metadata',response);
 
+          this.params = response?.params || null;
+
+          if(this.params !== null) {
+            this.params = this.params.split('&');
+            this.params = this.params.map((item, index, arr) => {
+              let i = item.split('=');
+              return { key: i[0], value: i[1] };
+            });
+            console.log('params', this.params);
+          }
 
           this.paginationService.change({
             page: response.metadata.page,
@@ -43,8 +62,18 @@ export class DashboardCollectorComponent implements OnInit, OnDestroy {
             perPage: response.metadata.perPage,
             totalCount: response.metadata.totalCount
           });
-        } else {
+        } else if(response === undefined) {
           this.listadoCaptados = [];
+          this.params = null;
+          this.message = 'No se encontraron resultados para tu busqueda';
+          this.paginationService.change({
+            page: 0,
+            totalPages: 0,
+            perPage: 0,
+            totalCount: 0
+          });
+          console.log(response);
+          console.log(this.message)
         }
       }
     );
@@ -58,9 +87,6 @@ export class DashboardCollectorComponent implements OnInit, OnDestroy {
 
       this.Filterservice.getListadoFreelancer(params.toString()).subscribe(
         (response: CaptadosBase) => {
-          for(let i of response.data.records) {
-            this.getdetailCaptado(i.id, i);
-          }
           console.log('listadoCaptados',this.listadoCaptados);
           this.Filterservice.listadoFreelancer = response.data;
         }, error => {
@@ -78,7 +104,7 @@ export class DashboardCollectorComponent implements OnInit, OnDestroy {
       perPage: evt.rows,
       totalCount: this.paginationService.totalCount
     });
-
+    this.loading = true;
     this.paginationService.refreshListado = true;
   }
 

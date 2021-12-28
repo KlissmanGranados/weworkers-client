@@ -91,8 +91,7 @@ export class RegisterCollectorComponent implements OnInit {
           text: `${response.message}`
         })
         if(response){
-          // this.router.navigate(['/auth/login']);
-          this.router.navigate(['/auth/validate-registration']);
+          this.router.navigate(['/auth/login']);
         }
       },error =>{
         console.log(error)

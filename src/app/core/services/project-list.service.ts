@@ -51,4 +51,16 @@ export class ProjectListService {
     this.proyectList = null;
     this.freelanceList = null;
   }
+
+  agregarTrabajador(json): Observable<any>{
+    return this.http.post<any>(`${this.urlApi}/captador/agregar-trabajador`, json);
+  }
+
+  eliminarTrabajador(json): Observable<any>{
+    return this.http.request('delete',`${this.urlApi}/captador/eliminar-trabajador`,  {body: json});
+  }
+
+  // deleteUserLanguage(json): Observable<any>{
+  //   return this.http.request('delete', `${this.urlApi}/comun/idioma-eliminar`, {body: json});
+  // }
 }

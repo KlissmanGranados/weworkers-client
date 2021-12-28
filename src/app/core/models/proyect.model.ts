@@ -7,6 +7,7 @@ export interface ProyectoBase{
 export interface DataBase{
   metadata: Metadata;
   records: Records[];
+  params?: string;
 }
 
 export class PaginationData {

@@ -38,16 +38,21 @@
       <div *ngFor="let listarFreelancer of listaFreelancer">
         <p-card header="{{listarFreelancer.primerNombre}} {{listarFreelancer.primerApellido}}" [style]="{'margin':'1rem 0', 'box-shadow': '0 2px 2.5px -1px rgb(0 0 0 / 22%), 0 2px 2px 0 rgb(0 0 0 / 12%), 0 1px 3px 0 rgb(0 0 0 / 35%)'}">
           <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-7">
               <ul>
                 <li>Identificación: {{listarFreelancer.tipoIdentificacion}}-{{listarFreelancer.identificacion}}</li>
                 <li>Puntuación obtenida: {{listarFreelancer.score}} </li>
               </ul>
             </div>
-            <div class="col-md-4">
-              <button pButton pRipple type="button" label="Contactar" routerLink="/dashboard/chat" [style]="{'backgroundColor':'var(--bluegray-600)', 'border': 'none', 'margin': '0.5rem'}"></button>
+            <div class="col-md-5">
+              <!--Botón contactar-->
+              <button pButton pRipple type="button" label="Contactar" routerLink="/dashboard/chat" [style]="{'backgroundColor':'var(--bluegray-600)', 'border': 'none', 'margin': '0.5rem'}"
+              (click)="contactar(listarFreelancer.usuarioId)"
+              ></button>
+              <!--Final de Botón contactar-->
               <button pButton pRipple type="button" label="Ver perfil" routerLink="/dashboard/preview-profile/{{listarFreelancer.usuarioId}}" [style]="{'backgroundColor':'var(--indigo-600)', 'border': 'none', 'margin': '0.5rem'}"></button>
-              <button pButton pRipple type="button" label="Contratar" (click)="contratar(listarFreelancer.usuarioId)" [style]="{'backgroundColor':'var(--indigo-300)', 'border': 'none', 'margin': '0.5rem'}"></button>
+              <button pButton pRipple type="button" label="Emplear" *ngIf="!listarFreelancer.usuarioParticipando" (click)="contratar(listarFreelancer)" [style]="{'backgroundColor':'var(--indigo-300)', 'border': 'none', 'margin': '0.5rem'}"></button>
+              <button pButton pRipple type="button" label="Desemplear" *ngIf="listarFreelancer.usuarioParticipando" (click)="Borrarcontratar(listarFreelancer)" [style]="{'backgroundColor':'#dc3545', 'border': 'none', 'margin': '0.5rem'}"></button>
             </div>
           </div>
         </p-card>
@@ -65,4 +70,5 @@
     <h5>No hay propuestas de desarrolladores.</h5>
   </section>
 </div>
+<app-load [load]="loading"></app-load>
 <app-footer-general class="footer"></app-footer-general>

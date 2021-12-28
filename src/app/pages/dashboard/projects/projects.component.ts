@@ -16,6 +16,7 @@ export class ProjectsComponent implements OnInit, OnDestroy {
   userRole: any;
   supscription: Subscription;
   supscriptionPagination: Subscription;
+  loading: boolean = false;
 
   constructor(
     private projectListService: ProjectListService,
@@ -30,7 +31,7 @@ export class ProjectsComponent implements OnInit, OnDestroy {
         if(this.userRole.rolesid === 2) {
           if(response !== null) {
             this.listarProyectos = response.records;
-
+            this.loading = false;
           this.paginationService.change({
               page: response.metadata.page,
               totalPages: response.metadata.totalPages,
@@ -39,6 +40,7 @@ export class ProjectsComponent implements OnInit, OnDestroy {
             });
           } else {
             this.listarProyectos = [];
+            this.loading = false;
           }
         }
       }
@@ -54,6 +56,7 @@ export class ProjectsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    // this.loading = true;
     this.getListado(1, 10);
   }
 
@@ -65,6 +68,7 @@ export class ProjectsComponent implements OnInit, OnDestroy {
   }
 
   getListado(page: number, perPage: number){
+    this.loading = true;
     if(this.userRole.rolesid === 2) {
       let params = new HttpParams()
       .set('perPage', perPage.toString())
@@ -75,8 +79,10 @@ export class ProjectsComponent implements OnInit, OnDestroy {
           console.log('projects', response.data.records)
           if(response.data.records.length > 0) {
             this.projectListService.proyectList = response.data;
+            this.loading = false;
           } else {
             this.listarProyectos = [];
+            this.loading = false;
             // Mensaje de no posee propyectos o propuestas
           }
         }, error =>{
@@ -90,8 +96,10 @@ export class ProjectsComponent implements OnInit, OnDestroy {
           console.log('response', response);
           if(response.data.perfil.proyectos.length > 0) {
             this.listarProyectos = response.data.perfil.proyectos;
+            this.loading=false;
           } else {
             this.listarProyectos = [];
+            this.loading=false;
             // Mensaje de no posee propyectos o propuestas
           }
         }, error => {
@@ -108,7 +116,7 @@ export class ProjectsComponent implements OnInit, OnDestroy {
       perPage: evt.rows,
       totalCount: this.paginationService.totalCount
     });
-
+    this.loading = true;
     this.paginationService.refreshListado = true;
   }
 

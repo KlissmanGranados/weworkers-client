@@ -80,7 +80,7 @@
 .profile-work{
   margin-top: -15%;
   border-right: 1px solid #00000038;
-  height: 253px;
+  height: auto;
 }
 .profile-work p{
   font-size: 12px;

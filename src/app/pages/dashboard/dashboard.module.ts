@@ -14,7 +14,6 @@ import {DividerModule} from 'primeng/divider';
 import {ButtonModule} from 'primeng/button';
 import {PaginatorModule} from 'primeng/paginator';
 
-
 import { DashboardComponent } from './dashboard.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PoliticasComponent } from './politicas/politicas.component';
@@ -38,6 +37,7 @@ import { QuizPresentationComponent } from './quiz-presentation/quiz-presentation
 import { ProjectListService } from 'src/app/core/services/project-list.service';
 import { QuestionnaireService } from 'src/app/core/services/questionnaire.service';
 import { PreviewProfileComponent } from './preview-profile/preview-profile.component';
+import { ChatManagerService } from 'src/app/core/services/chat-manager.service';
 
 @NgModule({
   declarations: [
@@ -80,6 +80,7 @@ import { PreviewProfileComponent } from './preview-profile/preview-profile.compo
     DashboardCollectorComponent
   ],
   providers:[
+    ChatManagerService,
     ProfileService,
     AuthService,
     ProjectListService,

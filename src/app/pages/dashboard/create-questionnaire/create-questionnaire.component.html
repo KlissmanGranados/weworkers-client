@@ -13,7 +13,7 @@
               pButton
               type="button"
               (click)="addItemPreguntas()"
-              label="Agregar cuestionario"
+              label="Agregar pregunta"
               *ngIf="type === 'crear'"
             ></button>
           </div>
@@ -23,7 +23,7 @@
             *ngFor="let pregunta of preguntas.controls;  let i=index"
           >
           <div [formGroupName]="i">
-              <h3>Cuestionario {{i+1}}</h3>
+              <h3>Pregunta {{i+1}}</h3>
               <div class="form-floating mb-3">
                 <input formControlName="pregunta" type="text" class="form-control" id="pregunta{{i+1}}" placeholder="pregunta{{i+1}}">
                 <label for="pregunta{{i+1}}">Ingrese su pregunta</label>

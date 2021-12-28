@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpBackend, HttpClient, HttpResponse } from '@angular/common/http';
 
 import { environment } from 'src/environments/environment';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -14,10 +14,11 @@ export class AuthService {
   tokenKey = 'tk';
   private loggedIn = new BehaviorSubject<boolean>(false);//inicializacion
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private httpBackend: HttpBackend) { }
 
   register(json: Registrofreelancer): Observable<any>{
-    return this.http.post<Registrofreelancer>(`${this.urlApi}/auth/registrar/`, json);
+    const newHttpClient = new HttpClient(this.httpBackend);
+    return newHttpClient.post<Registrofreelancer>(`${this.urlApi}/auth/registrar/`, json);
   }
 
   login(json: login): Observable<any>{
